@@ -85,18 +85,6 @@ const Portfolio = () => {
       setSkills(skillsData);
     } catch (error) {
       console.error('Error fetching data:', error);
-      // Fallback data
-      setProjects([
-        { id: 1, title: 'E-Commerce Platform', description: 'Full-stack shopping experience', tech: ['React', 'Node.js', 'MongoDB'], link: '#' },
-        { id: 2, title: 'Task Management App', description: 'Collaborative project management', tech: ['React', 'Express', 'PostgreSQL'], link: '#' },
-        { id: 3, title: 'Social Media Dashboard', description: 'Analytics and insights platform', tech: ['React', 'D3.js', 'Firebase'], link: '#' }
-      ]);
-      setSkills([
-        { id: 1, name: 'React.js', level: 90, category: 'frontend' },
-        { id: 2, name: 'Node.js', level: 85, category: 'backend' },
-        { id: 3, name: 'TypeScript', level: 80, category: 'frontend' },
-        { id: 4, name: 'MongoDB', level: 75, category: 'backend' }
-      ]);
     } finally {
       setIsLoading(false);
     }
