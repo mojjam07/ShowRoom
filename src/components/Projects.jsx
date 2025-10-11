@@ -9,16 +9,28 @@ const Projects = ({ projects }) => {
           Featured <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Projects</span>
         </h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map(project => (
+          {projects.length === 0 ? (
+            <p className="text-center text-gray-600 dark:text-gray-400 col-span-full">No projects available.</p>
+          ) : (
+            projects.map(project => (
             <div
               key={project.id}
               className="bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-300/20 dark:border-purple-500/20 hover:border-purple-400 dark:hover:border-purple-500/50 transition-all transform hover:scale-105"
             >
-              <div className="h-48 bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
-                <Code size={64} className="opacity-50" />
+              <div className="h-48 bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center overflow-hidden">
+                {project.image ? (
+                  <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+                ) : (
+                  <Code size={64} className="opacity-50" />
+                )}
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-xl font-bold">{project.title}</h3>
+                  {project.featured && (
+                    <span className="px-2 py-1 bg-yellow-500 text-white text-xs rounded-full">Featured</span>
+                  )}
+                </div>
                 <p className="text-gray-600 dark:text-gray-400 mb-4">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tech.map((tech, i) => (
@@ -35,7 +47,8 @@ const Projects = ({ projects }) => {
                 </a>
               </div>
             </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </section>

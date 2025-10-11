@@ -146,6 +146,7 @@ const ProjectsAdmin = () => {
             <tr>
               <th className="p-4 text-left">Title</th>
               <th className="p-4 text-left">Tech</th>
+              <th className="p-4 text-left">Featured</th>
               <th className="p-4 text-left">Actions</th>
             </tr>
           </thead>
@@ -154,6 +155,7 @@ const ProjectsAdmin = () => {
               <tr key={project.id} className="border-t dark:border-gray-600">
                 <td className="p-4">{project.title}</td>
                 <td className="p-4">{project.tech.join(', ')}</td>
+                <td className="p-4">{project.featured ? 'Yes' : 'No'}</td>
                 <td className="p-4">
                   <button onClick={() => handleEdit(project)} className="mr-2 text-blue-500 hover:text-blue-700">
                     <Edit className="w-5 h-5" />

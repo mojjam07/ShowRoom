@@ -8,7 +8,10 @@ const Skills = ({ skills }) => {
           My <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Skills</span>
         </h2>
         <div className="grid md:grid-cols-2 gap-6">
-          {skills.map(skill => (
+          {skills.length === 0 ? (
+            <p className="text-center text-gray-600 dark:text-gray-400 col-span-full">No skills available.</p>
+          ) : (
+            skills.map(skill => (
             <div key={skill.id} className="bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl border border-gray-300/20 dark:border-purple-500/20 hover:border-purple-400 dark:hover:border-purple-500/50 transition-all">
               <div className="flex justify-between mb-2">
                 <span className="font-semibold">{skill.name}</span>
@@ -21,7 +24,8 @@ const Skills = ({ skills }) => {
                 ></div>
               </div>
             </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </section>

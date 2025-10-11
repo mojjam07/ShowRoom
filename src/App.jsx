@@ -75,10 +75,10 @@ const Portfolio = () => {
 
   const fetchData = async () => {
     try {
-      const [projectsRes, skillsRes] = await Promise.all([
-        fetch(`${API_URL}/projects`),
-        fetch(`${API_URL}/skills`)
-      ]);
+  const [projectsRes, skillsRes] = await Promise.all([
+    fetch(`${API_URL}/projects?featured=true`),
+    fetch(`${API_URL}/skills`)
+  ]);
       const projectsData = await projectsRes.json();
       const skillsData = await skillsRes.json();
       setProjects(projectsData);
