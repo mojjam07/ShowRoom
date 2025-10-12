@@ -46,7 +46,7 @@ const ContactsAdmin = () => {
                   {contact.email}
                 </p>
                 <p className="text-sm text-gray-500 dark:text-gray-500 mt-1">
-                  {new Date(contact.created_at).toLocaleString()}
+                  {new Date(contact.timestamp).toLocaleString()}
                 </p>
                 <div className="mt-4">
                   <p className="text-gray-700 dark:text-gray-300 flex items-start">
