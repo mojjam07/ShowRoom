@@ -34,7 +34,7 @@ const About = () => {
             <div className="flex items-center gap-3 xs:gap-4">
               <Briefcase className="text-pink-400 flex-shrink-0 xs:w-8 xs:h-8" size={28} />
               <div>
-                <h3 className="text-xl xs:text-2xl font-bold">50+</h3>
+                <h3 className="text-xl xs:text-2xl font-bold">15+</h3>
                 <p className="text-sm xs:text-base text-gray-600 dark:text-gray-400">Projects Completed</p>
               </div>
             </div>
