@@ -8,6 +8,7 @@ import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import Loading from './components/Loading';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import AdminLayout from './components/admin/AdminLayout';
@@ -116,6 +117,10 @@ const Portfolio = () => {
     setIsMenuOpen(false);
   };
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-gray-100 to-white text-black dark:from-slate-900 dark:via-blue-900 dark:to-slate-900 dark:text-white">
       <Navigation
@@ -143,7 +148,7 @@ const Portfolio = () => {
 
 const ProtectedRoute = ({ children }) => {
   const { token, loading } = useAuth();
-  if (loading) return <div className="flex justify-center items-center min-h-screen">Loading...</div>;
+  if (loading) return <Loading />;
   return token ? children : <Navigate to="/admin/login" />;
 };
 
