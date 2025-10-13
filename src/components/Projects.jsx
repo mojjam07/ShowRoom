@@ -39,9 +39,12 @@ const Projects = ({ projects }) => {
                     </span>
                   ))}
                 </div>
-                <span className="inline-flex items-center gap-2 text-gray-400 dark:text-gray-500 cursor-not-allowed text-sm xs:text-base">
+                <a
+                  href={project.link}
+                  className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors touch-target focus-ring text-sm xs:text-base"
+                >
                   View Project <ExternalLink size={14} className="xs:w-4 xs:h-4" />
-                </span>
+                </a>
               </div>
             </div>
             ))
