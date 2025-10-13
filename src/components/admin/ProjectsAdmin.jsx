@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { Plus, Edit, Trash2 } from 'lucide-react';
+import Loading from '../Loading';
 
 const ProjectsAdmin = () => {
   const { token } = useAuth();
@@ -73,7 +74,7 @@ const ProjectsAdmin = () => {
     }
   };
 
-  if (loading) return <div className="p-3 xs:p-4 sm:p-6">Loading...</div>;
+  if (loading) return <Loading />;
 
   return (
     <div>

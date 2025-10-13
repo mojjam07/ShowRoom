@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { Mail, User, MessageSquare } from 'lucide-react';
+import Loading from '../Loading';
 
 const ContactsAdmin = () => {
   const { token } = useAuth();
@@ -29,7 +30,7 @@ const ContactsAdmin = () => {
     }
   };
 
-  if (loading) return <div className="p-3 xs:p-4 sm:p-6">Loading...</div>;
+  if (loading) return <Loading />;
 
   return (
     <div>
