@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { BarChart3, Users, Folder, Code, Mail } from 'lucide-react';
+import Loading from '../Loading';
 
 const Dashboard = () => {
   const { token } = useAuth();
@@ -29,7 +30,7 @@ const Dashboard = () => {
     }
   };
 
-  if (loading) return <div className="p-6">Loading...</div>;
+  if (loading) return <Loading />;
 
   return (
     <div>
