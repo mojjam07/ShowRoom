@@ -152,7 +152,7 @@ const AppContent = () => (
     <Routes>
       <Route path="/" element={<Portfolio />} />
       <Route path="/admin/login" element={<Login />} />
-      <Route path="/admin/register" element={<Register />} />
+      {/* <Route path="/admin/register" element={<Register />} /> */}
       <Route path="/admin" element={
         <ProtectedRoute>
           <AdminLayout />
