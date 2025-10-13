@@ -32,42 +32,42 @@ const Dashboard = () => {
   if (loading) return <div className="p-6">Loading...</div>;
 
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Dashboard</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+    <div>
+      <h1 className="text-2xl xs:text-3xl font-bold mb-4 xs:mb-6 text-gray-900 dark:text-white">Dashboard</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 xs:gap-6">
+        <div className="bg-white dark:bg-gray-800 p-4 xs:p-6 rounded-lg shadow-md">
           <div className="flex items-center">
-            <Folder className="w-8 h-8 text-blue-500 mr-3" />
-            <div>
-              <p className="text-gray-600 dark:text-gray-400">Projects</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.totalProjects || 0}</p>
+            <Folder className="w-6 h-6 xs:w-8 xs:h-8 text-blue-500 mr-2 xs:mr-3 flex-shrink-0" />
+            <div className="min-w-0 flex-1">
+              <p className="text-sm xs:text-base text-gray-600 dark:text-gray-400 truncate">Projects</p>
+              <p className="text-xl xs:text-2xl font-bold text-gray-900 dark:text-white">{stats.totalProjects || 0}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+        <div className="bg-white dark:bg-gray-800 p-4 xs:p-6 rounded-lg shadow-md">
           <div className="flex items-center">
-            <Code className="w-8 h-8 text-green-500 mr-3" />
-            <div>
-              <p className="text-gray-600 dark:text-gray-400">Skills</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.totalSkills || 0}</p>
+            <Code className="w-6 h-6 xs:w-8 xs:h-8 text-green-500 mr-2 xs:mr-3 flex-shrink-0" />
+            <div className="min-w-0 flex-1">
+              <p className="text-sm xs:text-base text-gray-600 dark:text-gray-400 truncate">Skills</p>
+              <p className="text-xl xs:text-2xl font-bold text-gray-900 dark:text-white">{stats.totalSkills || 0}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+        <div className="bg-white dark:bg-gray-800 p-4 xs:p-6 rounded-lg shadow-md">
           <div className="flex items-center">
-            <Users className="w-8 h-8 text-purple-500 mr-3" />
-            <div>
-              <p className="text-gray-600 dark:text-gray-400">Contacts</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.totalContacts || 0}</p>
+            <Users className="w-6 h-6 xs:w-8 xs:h-8 text-purple-500 mr-2 xs:mr-3 flex-shrink-0" />
+            <div className="min-w-0 flex-1">
+              <p className="text-sm xs:text-base text-gray-600 dark:text-gray-400 truncate">Contacts</p>
+              <p className="text-xl xs:text-2xl font-bold text-gray-900 dark:text-white">{stats.totalContacts || 0}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+        <div className="bg-white dark:bg-gray-800 p-4 xs:p-6 rounded-lg shadow-md">
           <div className="flex items-center">
-            <Mail className="w-8 h-8 text-red-500 mr-3" />
-            <div>
-              <p className="text-gray-600 dark:text-gray-400">Unread Contacts</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.unreadContacts || 0}</p>
+            <Mail className="w-6 h-6 xs:w-8 xs:h-8 text-red-500 mr-2 xs:mr-3 flex-shrink-0" />
+            <div className="min-w-0 flex-1">
+              <p className="text-sm xs:text-base text-gray-600 dark:text-gray-400 truncate">Unread Contacts</p>
+              <p className="text-xl xs:text-2xl font-bold text-gray-900 dark:text-white">{stats.unreadContacts || 0}</p>
             </div>
           </div>
         </div>

@@ -73,19 +73,19 @@ const ProjectsAdmin = () => {
     }
   };
 
-  if (loading) return <div className="p-6">Loading...</div>;
+  if (loading) return <div className="p-3 xs:p-4 sm:p-6">Loading...</div>;
 
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Manage Projects</h1>
-      <form onSubmit={handleSubmit} className="mb-6 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div>
+      <h1 className="text-2xl xs:text-3xl font-bold mb-4 xs:mb-6 text-gray-900 dark:text-white">Manage Projects</h1>
+      <form onSubmit={handleSubmit} className="mb-4 xs:mb-6 bg-white dark:bg-gray-800 p-4 xs:p-6 rounded-lg shadow-md">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4">
           <input
             type="text"
             placeholder="Title"
             value={formData.title}
             onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-            className="p-2 border rounded dark:bg-gray-700 dark:text-white"
+            className="p-3 xs:p-2 border rounded dark:bg-gray-700 dark:text-white focus-ring text-sm xs:text-base"
             required
           />
           <input
@@ -93,7 +93,7 @@ const ProjectsAdmin = () => {
             placeholder="Tech (comma separated)"
             value={formData.tech}
             onChange={(e) => setFormData({ ...formData, tech: e.target.value })}
-            className="p-2 border rounded dark:bg-gray-700 dark:text-white"
+            className="p-3 xs:p-2 border rounded dark:bg-gray-700 dark:text-white focus-ring text-sm xs:text-base"
             required
           />
           <input
@@ -101,73 +101,88 @@ const ProjectsAdmin = () => {
             placeholder="Link"
             value={formData.link}
             onChange={(e) => setFormData({ ...formData, link: e.target.value })}
-            className="p-2 border rounded dark:bg-gray-700 dark:text-white"
+            className="p-3 xs:p-2 border rounded dark:bg-gray-700 dark:text-white focus-ring text-sm xs:text-base"
           />
           <input
             type="url"
             placeholder="Image URL"
             value={formData.image}
             onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-            className="p-2 border rounded dark:bg-gray-700 dark:text-white"
+            className="p-3 xs:p-2 border rounded dark:bg-gray-700 dark:text-white focus-ring text-sm xs:text-base"
           />
           <textarea
             placeholder="Description"
             value={formData.description}
             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-            className="p-2 border rounded dark:bg-gray-700 dark:text-white md:col-span-2"
+            className="p-3 xs:p-2 border rounded dark:bg-gray-700 dark:text-white focus-ring sm:col-span-2 text-sm xs:text-base resize-vertical"
+            rows="3"
             required
           />
-          <label className="flex items-center">
+          <label className="flex items-center sm:col-span-2">
             <input
               type="checkbox"
               checked={formData.featured}
               onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
-              className="mr-2"
+              className="mr-2 w-4 h-4"
             />
-            Featured
+            <span className="text-sm xs:text-base">Featured</span>
           </label>
         </div>
-        <button type="submit" className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-          {editing ? 'Update' : 'Add'} Project
-        </button>
-        {editing && (
-          <button
-            type="button"
-            onClick={() => setEditing(null)}
-            className="mt-4 ml-2 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
-          >
-            Cancel
+        <div className="flex flex-col xs:flex-row gap-2 xs:gap-0 mt-4">
+          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 touch-target focus-ring text-sm xs:text-base">
+            {editing ? 'Update' : 'Add'} Project
           </button>
-        )}
+          {editing && (
+            <button
+              type="button"
+              onClick={() => setEditing(null)}
+              className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 touch-target focus-ring text-sm xs:text-base xs:ml-2"
+            >
+              Cancel
+            </button>
+          )}
+        </div>
       </form>
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
-        <table className="w-full">
-          <thead className="bg-gray-50 dark:bg-gray-700">
-            <tr>
-              <th className="p-4 text-left">Title</th>
-              <th className="p-4 text-left">Tech</th>
-              <th className="p-4 text-left">Featured</th>
-              <th className="p-4 text-left">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {projects.map((project) => (
-              <tr key={project.id} className="border-t dark:border-gray-600">
-                <td className="p-4">{project.title}</td>
-                <td className="p-4">{project.tech.join(', ')}</td>
-                <td className="p-4">{project.featured ? 'Yes' : 'No'}</td>
-                <td className="p-4">
-                  <button onClick={() => handleEdit(project)} className="mr-2 text-blue-500 hover:text-blue-700">
-                    <Edit className="w-5 h-5" />
-                  </button>
-                  <button onClick={() => handleDelete(project.id)} className="text-red-500 hover:text-red-700">
-                    <Trash2 className="w-5 h-5" />
-                  </button>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[600px]">
+            <thead className="bg-gray-50 dark:bg-gray-700">
+              <tr>
+                <th className="p-3 xs:p-4 text-left text-sm xs:text-base font-semibold">Title</th>
+                <th className="p-3 xs:p-4 text-left text-sm xs:text-base font-semibold">Tech</th>
+                <th className="p-3 xs:p-4 text-left text-sm xs:text-base font-semibold">Featured</th>
+                <th className="p-3 xs:p-4 text-left text-sm xs:text-base font-semibold">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {projects.map((project) => (
+                <tr key={project.id} className="border-t dark:border-gray-600">
+                  <td className="p-3 xs:p-4 text-sm xs:text-base">{project.title}</td>
+                  <td className="p-3 xs:p-4 text-sm xs:text-base">{project.tech.join(', ')}</td>
+                  <td className="p-3 xs:p-4 text-sm xs:text-base">{project.featured ? 'Yes' : 'No'}</td>
+                  <td className="p-3 xs:p-4">
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => handleEdit(project)}
+                        className="text-blue-500 hover:text-blue-700 touch-target focus-ring p-2"
+                        title="Edit"
+                      >
+                        <Edit className="w-4 h-4 xs:w-5 xs:h-5" />
+                      </button>
+                      <button
+                        onClick={() => handleDelete(project.id)}
+                        className="text-red-500 hover:text-red-700 touch-target focus-ring p-2"
+                        title="Delete"
+                      >
+                        <Trash2 className="w-4 h-4 xs:w-5 xs:h-5" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

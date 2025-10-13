@@ -46,36 +46,36 @@ const UploadsAdmin = () => {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">File Uploads</h1>
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+    <div>
+      <h1 className="text-2xl xs:text-3xl font-bold mb-4 xs:mb-6 text-gray-900 dark:text-white">File Uploads</h1>
+      <div className="bg-white dark:bg-gray-800 p-4 xs:p-6 rounded-lg shadow-md">
         <form onSubmit={handleUpload}>
-          <div className="mb-4">
-            <label className="block text-gray-700 dark:text-gray-300 mb-2">Select File</label>
+          <div className="mb-3 xs:mb-4">
+            <label className="block text-sm xs:text-base text-gray-700 dark:text-gray-300 mb-2 font-medium">Select File</label>
             <input
               type="file"
               onChange={handleFileChange}
-              className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white"
+              className="w-full p-3 xs:p-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white focus-ring text-sm xs:text-base"
               required
             />
           </div>
           <button
             type="submit"
             disabled={uploading}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50 flex items-center"
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50 touch-target focus-ring flex items-center text-sm xs:text-base"
           >
-            <Upload className="w-5 h-5 mr-2" />
+            <Upload className="w-4 h-4 xs:w-5 xs:h-5 mr-2 flex-shrink-0" />
             {uploading ? 'Uploading...' : 'Upload'}
           </button>
         </form>
         {message && (
-          <p className={`mt-4 ${message.includes('successfully') ? 'text-green-500' : 'text-red-500'}`}>
+          <p className={`mt-3 xs:mt-4 text-sm xs:text-base ${message.includes('successfully') ? 'text-green-500' : 'text-red-500'}`}>
             {message}
           </p>
         )}
-        <div className="mt-6">
-          <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Upload Guidelines</h2>
-          <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-2">
+        <div className="mt-4 xs:mt-6">
+          <h2 className="text-lg xs:text-xl font-semibold mb-3 xs:mb-4 text-gray-900 dark:text-white">Upload Guidelines</h2>
+          <ul className="list-disc list-inside text-sm xs:text-base text-gray-700 dark:text-gray-300 space-y-1 xs:space-y-2 pl-4">
             <li>Supported formats: Images (JPG, PNG, GIF), Documents (PDF, DOC, DOCX)</li>
             <li>Maximum file size: 5MB</li>
             <li>Use descriptive filenames</li>

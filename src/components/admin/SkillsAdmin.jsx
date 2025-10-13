@@ -73,19 +73,19 @@ const SkillsAdmin = () => {
     }
   };
 
-  if (loading) return <div className="p-6">Loading...</div>;
+  if (loading) return <div className="p-3 xs:p-4 sm:p-6">Loading...</div>;
 
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Manage Skills</h1>
-      <form onSubmit={handleSubmit} className="mb-6 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div>
+      <h1 className="text-2xl xs:text-3xl font-bold mb-4 xs:mb-6 text-gray-900 dark:text-white">Manage Skills</h1>
+      <form onSubmit={handleSubmit} className="mb-4 xs:mb-6 bg-white dark:bg-gray-800 p-4 xs:p-6 rounded-lg shadow-md">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 xs:gap-4">
           <input
             type="text"
             placeholder="Name"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            className="p-2 border rounded dark:bg-gray-700 dark:text-white"
+            className="p-3 xs:p-2 border rounded dark:bg-gray-700 dark:text-white focus-ring text-sm xs:text-base"
             required
           />
           <input
@@ -93,7 +93,7 @@ const SkillsAdmin = () => {
             placeholder="Level (0-100)"
             value={formData.level}
             onChange={(e) => setFormData({ ...formData, level: parseInt(e.target.value) })}
-            className="p-2 border rounded dark:bg-gray-700 dark:text-white"
+            className="p-3 xs:p-2 border rounded dark:bg-gray-700 dark:text-white focus-ring text-sm xs:text-base"
             min="0"
             max="100"
             required
@@ -103,51 +103,65 @@ const SkillsAdmin = () => {
             placeholder="Category"
             value={formData.category}
             onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-            className="p-2 border rounded dark:bg-gray-700 dark:text-white"
+            className="p-3 xs:p-2 border rounded dark:bg-gray-700 dark:text-white focus-ring sm:col-span-2 lg:col-span-1 text-sm xs:text-base"
             required
           />
         </div>
-        <button type="submit" className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-          {editing ? 'Update' : 'Add'} Skill
-        </button>
-        {editing && (
-          <button
-            type="button"
-            onClick={() => setEditing(null)}
-            className="mt-4 ml-2 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
-          >
-            Cancel
+        <div className="flex flex-col xs:flex-row gap-2 xs:gap-0 mt-4">
+          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 touch-target focus-ring text-sm xs:text-base">
+            {editing ? 'Update' : 'Add'} Skill
           </button>
-        )}
+          {editing && (
+            <button
+              type="button"
+              onClick={() => setEditing(null)}
+              className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 touch-target focus-ring text-sm xs:text-base xs:ml-2"
+            >
+              Cancel
+            </button>
+          )}
+        </div>
       </form>
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
-        <table className="w-full">
-          <thead className="bg-gray-50 dark:bg-gray-700">
-            <tr>
-              <th className="p-4 text-left">Name</th>
-              <th className="p-4 text-left">Level</th>
-              <th className="p-4 text-left">Category</th>
-              <th className="p-4 text-left">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {skills.map((skill) => (
-              <tr key={skill.id} className="border-t dark:border-gray-600">
-                <td className="p-4">{skill.name}</td>
-                <td className="p-4">{skill.level}%</td>
-                <td className="p-4">{skill.category}</td>
-                <td className="p-4">
-                  <button onClick={() => handleEdit(skill)} className="mr-2 text-blue-500 hover:text-blue-700">
-                    <Edit className="w-5 h-5" />
-                  </button>
-                  <button onClick={() => handleDelete(skill.id)} className="text-red-500 hover:text-red-700">
-                    <Trash2 className="w-5 h-5" />
-                  </button>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[500px]">
+            <thead className="bg-gray-50 dark:bg-gray-700">
+              <tr>
+                <th className="p-3 xs:p-4 text-left text-sm xs:text-base font-semibold">Name</th>
+                <th className="p-3 xs:p-4 text-left text-sm xs:text-base font-semibold">Level</th>
+                <th className="p-3 xs:p-4 text-left text-sm xs:text-base font-semibold">Category</th>
+                <th className="p-3 xs:p-4 text-left text-sm xs:text-base font-semibold">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {skills.map((skill) => (
+                <tr key={skill.id} className="border-t dark:border-gray-600">
+                  <td className="p-3 xs:p-4 text-sm xs:text-base">{skill.name}</td>
+                  <td className="p-3 xs:p-4 text-sm xs:text-base">{skill.level}%</td>
+                  <td className="p-3 xs:p-4 text-sm xs:text-base">{skill.category}</td>
+                  <td className="p-3 xs:p-4">
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => handleEdit(skill)}
+                        className="text-blue-500 hover:text-blue-700 touch-target focus-ring p-2"
+                        title="Edit"
+                      >
+                        <Edit className="w-4 h-4 xs:w-5 xs:h-5" />
+                      </button>
+                      <button
+                        onClick={() => handleDelete(skill.id)}
+                        className="text-red-500 hover:text-red-700 touch-target focus-ring p-2"
+                        title="Delete"
+                      >
+                        <Trash2 className="w-4 h-4 xs:w-5 xs:h-5" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
