@@ -3,7 +3,7 @@ import { Send } from 'lucide-react';
 
 const Contact = ({ formData, setFormData, formStatus, handleSubmit }) => {
   return (
-    <section id="contact" className="min-h-screen flex items-center px-3 xs:px-4 sm:px-6 lg:px-8 py-12 xs:py-16 sm:py-20">
+    <section id="contact" className="min-h-screen flex items-center px-2 xs:px-3 sm:px-4 lg:px-6 py-8 xs:py-12 sm:py-16">
       <div className="max-w-4xl mx-auto w-full">
         <h2 className="text-3xl xs:text-4xl sm:text-4xl md:text-5xl font-bold mb-8 xs:mb-10 sm:mb-12 text-center">
           Get In <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Touch</span>

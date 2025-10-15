@@ -1,10 +1,10 @@
 import React from 'react';
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { Github, Linkedin, Mail, Instagram, Facebook, MessageCircle, Twitter } from 'lucide-react';
 import profileImg from '../assets/profile.png';
 
 const Hero = ({ scrollTo }) => {
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center px-3 xs:px-4 sm:px-6 lg:px-8 pt-14 xs:pt-16">
+    <section id="home" className="min-h-screen flex items-center justify-center px-2 xs:px-3 sm:px-4 lg:px-6 pt-6 xs:pt-8">
       <div className="text-center max-w-4xl mx-auto w-full">
         <div className="mb-6 xs:mb-8 relative">
           <div className="w-24 h-24 xs:w-28 xs:h-28 sm:w-32 sm:h-32 mx-auto rounded-full bg-gradient-to-br from-purple-500 to-pink-500 p-1">
@@ -34,7 +34,7 @@ const Hero = ({ scrollTo }) => {
             Get In Touch
           </button>
         </div>
-        <div className="flex gap-4 xs:gap-6 justify-center mt-6 xs:mt-8">
+        <div className="flex gap-4 xs:gap-6 justify-center mt-6 xs:mt-8 flex-wrap">
           <a href="https://github.com/mojjam07" className="hover:text-purple-400 transition-colors touch-target focus-ring p-2">
             <Github size={20} className="xs:w-6 xs:h-6" />
           </a>
@@ -43,6 +43,18 @@ const Hero = ({ scrollTo }) => {
           </a>
           <a href="mailto:mojjam07@gmail.com" className="hover:text-purple-400 transition-colors touch-target focus-ring p-2">
             <Mail size={20} className="xs:w-6 xs:h-6" />
+          </a>
+          <a href="https://instagram.com/yourusername" className="hover:text-purple-400 transition-colors touch-target focus-ring p-2">
+            <Instagram size={20} className="xs:w-6 xs:h-6" />
+          </a>
+          <a href="https://facebook.com/yourusername" className="hover:text-purple-400 transition-colors touch-target focus-ring p-2">
+            <Facebook size={20} className="xs:w-6 xs:h-6" />
+          </a>
+          <a href="https://wa.me/yourphonenumber" className="hover:text-purple-400 transition-colors touch-target focus-ring p-2">
+            <MessageCircle size={20} className="xs:w-6 xs:h-6" />
+          </a>
+          <a href="https://twitter.com/yourusername" className="hover:text-purple-400 transition-colors touch-target focus-ring p-2">
+            <Twitter size={20} className="xs:w-6 xs:h-6" />
           </a>
         </div>
       </div>

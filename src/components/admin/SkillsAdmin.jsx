@@ -8,7 +8,7 @@ const SkillsAdmin = () => {
   const [skills, setSkills] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(null);
-  const [formData, setFormData] = useState({ name: '', level: 0, category: '' });
+  const [formData, setFormData] = useState({ name: '', category: '' });
 
   const API_URL = import.meta.env.VITE_API_URL || '/api';
 
@@ -48,7 +48,7 @@ const SkillsAdmin = () => {
       if (response.ok) {
         fetchSkills();
         setEditing(null);
-        setFormData({ name: '', level: 0, category: '' });
+        setFormData({ name: '', category: '' });
       }
     } catch (error) {
       console.error('Error saving skill:', error);
@@ -80,7 +80,7 @@ const SkillsAdmin = () => {
     <div>
       <h1 className="text-2xl xs:text-3xl font-bold mb-4 xs:mb-6 text-gray-900 dark:text-white">Manage Skills</h1>
       <form onSubmit={handleSubmit} className="mb-4 xs:mb-6 bg-white dark:bg-gray-800 p-4 xs:p-6 rounded-lg shadow-md">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 xs:gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4">
           <input
             type="text"
             placeholder="Name"
@@ -90,21 +90,11 @@ const SkillsAdmin = () => {
             required
           />
           <input
-            type="number"
-            placeholder="Level (0-100)"
-            value={formData.level}
-            onChange={(e) => setFormData({ ...formData, level: parseInt(e.target.value) })}
-            className="p-3 xs:p-2 border rounded dark:bg-gray-700 dark:text-white focus-ring text-sm xs:text-base"
-            min="0"
-            max="100"
-            required
-          />
-          <input
             type="text"
             placeholder="Category"
             value={formData.category}
             onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-            className="p-3 xs:p-2 border rounded dark:bg-gray-700 dark:text-white focus-ring sm:col-span-2 lg:col-span-1 text-sm xs:text-base"
+            className="p-3 xs:p-2 border rounded dark:bg-gray-700 dark:text-white focus-ring text-sm xs:text-base"
             required
           />
         </div>
@@ -129,7 +119,6 @@ const SkillsAdmin = () => {
             <thead className="bg-gray-50 dark:bg-gray-700">
               <tr>
                 <th className="p-3 xs:p-4 text-left text-sm xs:text-base font-semibold">Name</th>
-                <th className="p-3 xs:p-4 text-left text-sm xs:text-base font-semibold">Level</th>
                 <th className="p-3 xs:p-4 text-left text-sm xs:text-base font-semibold">Category</th>
                 <th className="p-3 xs:p-4 text-left text-sm xs:text-base font-semibold">Actions</th>
               </tr>
@@ -138,7 +127,6 @@ const SkillsAdmin = () => {
               {skills.map((skill) => (
                 <tr key={skill.id} className="border-t dark:border-gray-600">
                   <td className="p-3 xs:p-4 text-sm xs:text-base">{skill.name}</td>
-                  <td className="p-3 xs:p-4 text-sm xs:text-base">{skill.level}%</td>
                   <td className="p-3 xs:p-4 text-sm xs:text-base">{skill.category}</td>
                   <td className="p-3 xs:p-4">
                     <div className="flex gap-2">
