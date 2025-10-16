@@ -141,6 +141,7 @@ const Portfolio = () => {
         formStatus={formStatus}
         handleSubmit={handleSubmit}
       />
+      <hr className="border-gray-300 dark:border-gray-700 my-4" />
       <Footer />
     </div>
   );

@@ -4,23 +4,33 @@ import { Code, Briefcase } from 'lucide-react';
 const About = () => {
   return (
     <section id="about" className="min-h-screen flex items-center px-2 xs:px-3 sm:px-4 lg:px-6 py-8 xs:py-12 sm:py-16">
-      <div className="max-w-8xl mx-auto w-full">
+      <div className="max-w-6xl sm:py-4 mx-auto w-full">
         <h2 className="text-3xl xs:text-4xl sm:text-4xl md:text-5xl font-bold mb-8 xs:mb-10 sm:mb-12 text-center">
           About <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Me</span>
         </h2>
         <div className="grid lg:grid-cols-2 gap-8 xs:gap-10 sm:gap-12 items-center">
           <div className="space-y-4 xs:space-y-6 text-base xs:text-lg text-gray-700 dark:text-gray-300">
             <p>
-              I'm a passionate full-stack developer with expertise in building scalable web applications.
-              My journey in tech has equipped me with a diverse skill set and a problem-solving mindset.
+              I'm a passionate full-stack developer with a strong focus on building scalable, high-performance web applications 
+              that solve real-world problems. Over the years, I’ve honed my ability to transform complex ideas into clean, 
+              efficient, and maintainable code. My journey in technology has shaped me into a detail-oriented engineer 
+              who thrives on continuous learning, innovation, and delivering user-centered digital solutions.
             </p>
+
             <p>
-              I specialize in React, Node.js, and modern JavaScript frameworks, creating seamless user
-              experiences backed by robust backend systems.
+              I specialize in React, Node.js, and modern JavaScript frameworks such as Next.js and Express. 
+              My development philosophy emphasizes clean architecture, reusable components, and responsive design. 
+              Whether I’m crafting intuitive front-end interfaces or architecting powerful backend systems, 
+              I ensure every project is optimized for performance, security, and scalability. 
+              I also enjoy working with tools like Django, TypeScript, and RESTful or GraphQL APIs to deliver 
+              seamless, end-to-end experiences.
             </p>
+
             <p>
-              When I'm not coding, I'm exploring new technologies, contributing to open source, or sharing
-              knowledge with the developer community.
+              When I’m not coding, I’m often exploring emerging technologies, contributing to open-source projects, 
+              or mentoring aspiring developers to help them grow in the tech space. I also enjoy writing technical articles, 
+              experimenting with DevOps tools like Docker and CI/CD pipelines, and collaborating on creative projects 
+              that push the boundaries of modern web development.
             </p>
           </div>
           <div className="bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm p-6 xs:p-8 rounded-2xl border border-gray-300/20 dark:border-purple-500/20">
@@ -28,14 +38,25 @@ const About = () => {
               <Code className="text-purple-400 flex-shrink-0 xs:w-8 xs:h-8" size={28} />
               <div>
                 <h3 className="text-xl xs:text-2xl font-bold">2+</h3>
-                <p className="text-sm xs:text-base text-gray-600 dark:text-gray-400">Years of Experience</p>
+                <p className="text-sm xs:text-base text-gray-600 dark:text-gray-400">
+                  Years of hands-on experience developing and deploying full-stack web applications 
+                  using modern technologies and frameworks. Over this time, I’ve collaborated on 
+                  diverse projects—ranging from small startups to scalable production-grade systems—
+                  continually improving my design thinking, clean coding, and performance optimization skills.
+                </p>
               </div>
             </div>
+
             <div className="flex items-center gap-3 xs:gap-4">
               <Briefcase className="text-pink-400 flex-shrink-0 xs:w-8 xs:h-8" size={28} />
               <div>
                 <h3 className="text-xl xs:text-2xl font-bold">7+</h3>
-                <p className="text-sm xs:text-base text-gray-600 dark:text-gray-400">Projects Completed</p>
+                <p className="text-sm xs:text-base text-gray-600 dark:text-gray-400">
+                  Projects successfully completed across different domains, including portfolio websites, 
+                  e-commerce platforms, API integrations, and dashboard systems. Each project refined my 
+                  understanding of building maintainable, user-friendly, and high-performing applications, 
+                  from concept to deployment.
+                </p>
               </div>
             </div>
           </div>
