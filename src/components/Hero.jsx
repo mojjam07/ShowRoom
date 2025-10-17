@@ -4,7 +4,7 @@ import profileImg from '../assets/profile.png';
 
 const Hero = ({ scrollTo }) => {
   return (
-    <section id="home" className="flex items-center justify-center px-2 xs:px-3 sm:px-4 lg:px-6 pt-24 xs:pt-8">
+    <section id="home" className="flex items-center justify-center px-2 xs:px-3 sm:px-4 lg:px-6 pt-24 pb-4 xs:pt-8">
       <div className="text-center max-w-4xl mx-auto w-full">
         <div className="mb-6 xs:mb-8 relative">
           <div className="w-24 h-24 xs:w-28 xs:h-28 sm:w-32 sm:h-32 mx-auto rounded-full bg-gradient-to-br from-purple-500 to-pink-500 p-1">
