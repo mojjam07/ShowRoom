@@ -22,7 +22,7 @@ const Skills = ({ skills }) => {
 
   return (
     <section id="skills" className="min-h-screen flex items-center px-2 xs:px-3 sm:px-4 lg:px-6 py-8 xs:py-12 sm:py-16">
-      <div className="max-w-8xl mx-auto w-full">
+      <div className="max-w-8xl p-8 mx-auto w-full">
         <h2 className="text-3xl xs:text-4xl sm:text-4xl md:text-5xl font-bold mb-8 xs:mb-10 sm:mb-12 text-center">
           My <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Skills</span>
         </h2>

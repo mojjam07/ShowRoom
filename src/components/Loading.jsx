@@ -8,7 +8,7 @@ const Loading = () => {
           <div className="w-16 h-16 border-4 border-purple-400 border-t-transparent rounded-full animate-spin mx-auto"></div>
         </div>
         <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-          Loading...
+          Please wait...
         </h2>
         <div className="w-64 mx-auto">
           <div className="bg-gray-300 dark:bg-slate-700 rounded-full h-2 overflow-hidden">
