@@ -27,14 +27,7 @@ const Portfolio = () => {
   const [skills, setSkills] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isDark, setIsDark] = useState(() => {
-    const saved = localStorage.getItem('theme');
-    const isDarkMode = saved !== 'light';
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-    return isDarkMode;
+    return localStorage.getItem('theme') === 'dark';
   });
 
   const API_URL = import.meta.env.VITE_API_URL || '/api';
@@ -58,19 +51,16 @@ const Portfolio = () => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  }, [isDark]);
-
-  useEffect(() => {
     if (isDark) {
       document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
     }
   }, [isDark]);
 
   const toggleTheme = () => {
-    console.log('Toggle theme called. New isDark state:', !isDark);
     setIsDark(!isDark);
   };
 

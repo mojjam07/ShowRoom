@@ -50,10 +50,10 @@ const Hero = ({ scrollTo }) => {
           <a href="https://facebook.com/yourusername" className="hover:text-purple-400 transition-colors touch-target focus-ring p-2">
             <Facebook size={20} className="xs:w-6 xs:h-6" />
           </a>
-          <a href="https://wa.me/yourphonenumber" className="hover:text-purple-400 transition-colors touch-target focus-ring p-2">
+          <a href="https://wa.me/07063306325" className="hover:text-purple-400 transition-colors touch-target focus-ring p-2">
             <MessageCircle size={20} className="xs:w-6 xs:h-6" />
           </a>
-          <a href="https://twitter.com/yourusername" className="hover:text-purple-400 transition-colors touch-target focus-ring p-2">
+          <a href="https://twitter.com/el_munjid07" className="hover:text-purple-400 transition-colors touch-target focus-ring p-2">
             <Twitter size={20} className="xs:w-6 xs:h-6" />
           </a>
         </div>
