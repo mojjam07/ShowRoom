@@ -27,30 +27,59 @@ export const AuthProvider = ({ children }) => {
   }, [token]);
 
   const login = async (email, password) => {
-    const response = await fetch(`${API_URL}/auth/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
-    if (response.ok) {
-      const data = await response.json();
-      setToken(data.accessToken);
-      setRefreshToken(data.refreshToken);
-      localStorage.setItem('accessToken', data.accessToken);
-      localStorage.setItem('refreshToken', data.refreshToken);
-      setUser({}); // Set user data if returned
-      return true;
+    console.log('AuthContext: Attempting login for:', email);
+    try {
+      const response = await fetch(`${API_URL}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      console.log('AuthContext: Login response status:', response.status);
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('AuthContext: Login successful');
+        setToken(data.accessToken);
+        setRefreshToken(data.refreshToken);
+        localStorage.setItem('accessToken', data.accessToken);
+        localStorage.setItem('refreshToken', data.refreshToken);
+        setUser({}); // Set user data if returned
+        return { success: true };
+      } else {
+        const errorData = await response.json();
+        console.error('AuthContext: Login failed:', errorData.error);
+        return { success: false, error: errorData.error || 'Login failed' };
+      }
+    } catch (error) {
+      console.error('AuthContext: Login network error:', error.message);
+      return { success: false, error: `Network error: ${error.message}` };
     }
-    return false;
   };
 
   const register = async (email, password) => {
-    const response = await fetch(`${API_URL}/auth/register`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
-    return response.ok;
+    console.log('AuthContext: Attempting registration for:', email);
+    try {
+      const response = await fetch(`${API_URL}/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      console.log('AuthContext: Register response status:', response.status);
+
+      if (response.ok) {
+        console.log('AuthContext: Registration successful');
+        return { success: true };
+      } else {
+        const errorData = await response.json();
+        console.error('AuthContext: Registration failed:', errorData.error);
+        return { success: false, error: errorData.error || 'Registration failed' };
+      }
+    } catch (error) {
+      console.error('AuthContext: Registration network error:', error.message);
+      return { success: false, error: `Network error: ${error.message}` };
+    }
   };
 
   const logout = async () => {

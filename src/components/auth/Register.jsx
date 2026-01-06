@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { Eye, EyeOff, Mail, Lock, UserPlus, ArrowRight, Sparkles, CheckCircle, AlertCircle } from 'lucide-react';
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -8,73 +9,263 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
+  // Password strength calculation
+  const getPasswordStrength = (pwd) => {
+    let strength = 0;
+    if (pwd.length >= 8) strength++;
+    if (/[A-Z]/.test(pwd)) strength++;
+    if (/[0-9]/.test(pwd)) strength++;
+    if (/[^A-Za-z0-9]/.test(pwd)) strength++;
+    return strength;
+  };
+
+  const passwordStrength = getPasswordStrength(password);
+  const passwordsMatch = confirmPassword && password === confirmPassword;
+  const isPasswordStrong = passwordStrength >= 3;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setSuccess('');
+
+    if (!isPasswordStrong) {
+      setError('Password must be at least 8 characters with uppercase, number, and special character');
+      return;
+    }
+
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
-    const success = await register(email, password);
-    if (success) {
-      setSuccess('Registration successful! Please login.');
+
+    setIsLoading(true);
+    console.log('Register: Submitting form...');
+
+    const result = await register(email, password);
+    setIsLoading(false);
+
+    if (result.success) {
+      console.log('Register: Success');
+      setSuccess('Registration successful! Redirecting to login...');
       setTimeout(() => navigate('/admin/login'), 2000);
     } else {
-      setError('Registration failed');
+      console.log('Register: Failed with error:', result.error);
+      setError(result.error || 'Registration failed. Please try again.');
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
-      <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-white">Admin Register</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700 dark:text-gray-300 mb-2">Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 dark:text-gray-300 mb-2">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
-              required
-            />
-          </div>
-          <div className="mb-6">
-            <label className="block text-gray-700 dark:text-gray-300 mb-2">Confirm Password</label>
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
-              required
-            />
-          </div>
-          {error && <p className="text-red-500 mb-4">{error}</p>}
-          {success && <p className="text-green-500 mb-4">{success}</p>}
-          <button
-            type="submit"
-            className="w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
-          >
-            Register
-          </button>
-        </form>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-violet-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
       </div>
+
+      {/* Grid pattern overlay */}
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22none%22 fill-rule=%22evenodd%22%3E%3Cg fill=%22%239C92AC%22 fill-opacity=%220.03%22%3E%3Cpath d=%22M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
+
+      {/* Glassmorphism card */}
+      <div 
+        className={`relative w-full max-w-md px-6 transition-all duration-1000 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-2xl blur-xl opacity-30"></div>
+        <div className="relative bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 p-8">
+          {/* Header */}
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-indigo-500 to-cyan-500 rounded-2xl mb-4 shadow-lg">
+              <UserPlus className="w-8 h-8 text-white" />
+            </div>
+            <h2 className="text-3xl font-bold text-white mb-2">Create Account</h2>
+            <p className="text-gray-300 text-sm">Register to access the admin dashboard</p>
+          </div>
+
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Email input */}
+            <div className="relative group">
+              <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-indigo-400 transition-colors" />
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email address"
+                className="w-full px-4 py-3 pl-12 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all duration-300 hover:bg-white/10"
+                required
+              />
+            </div>
+
+            {/* Password input */}
+            <div className="relative group">
+              <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-indigo-400 transition-colors" />
+              <input
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+                className="w-full px-4 py-3 pl-12 pr-12 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all duration-300 hover:bg-white/10"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+              >
+                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+              </button>
+            </div>
+
+            {/* Password strength indicator */}
+            {password && (
+              <div className="space-y-2">
+                <div className="flex gap-1">
+                  {[1, 2, 3, 4].map((level) => (
+                    <div
+                      key={level}
+                      className={`h-1 flex-1 rounded-full transition-all duration-300 ${
+                        passwordStrength >= level 
+                          ? passwordStrength <= 1 
+                            ? 'bg-red-500' 
+                            : passwordStrength === 2 
+                              ? 'bg-yellow-500' 
+                              : passwordStrength === 3 
+                                ? 'bg-blue-500' 
+                                : 'bg-green-500'
+                          : 'bg-white/20'
+                      }`}
+                    />
+                  ))}
+                </div>
+                <p className={`text-xs ${isPasswordStrong ? 'text-green-400' : 'text-gray-400'}`}>
+                  {isPasswordStrong ? 'Strong password' : 'Use 8+ chars with uppercase, number, special'}
+                </p>
+              </div>
+            )}
+
+            {/* Confirm Password input */}
+            <div className="relative group">
+              <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-indigo-400 transition-colors" />
+              <input
+                type={showPassword ? 'text' : 'password'}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Confirm password"
+                className="w-full px-4 py-3 pl-12 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all duration-300 hover:bg-white/10"
+                required
+              />
+              {confirmPassword && (
+                <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+                  {passwordsMatch ? (
+                    <CheckCircle className="w-5 h-5 text-green-400" />
+                  ) : (
+                    <AlertCircle className="w-5 h-5 text-red-400" />
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Messages */}
+            {error && (
+              <div className="bg-red-500/20 border border-red-500/30 rounded-xl p-3 flex items-center gap-2 animate-shake">
+                <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
+                <p className="text-red-300 text-sm">{error}</p>
+              </div>
+            )}
+
+            {success && (
+              <div className="bg-green-500/20 border border-green-500/30 rounded-xl p-3 flex items-center gap-2 animate-fade-in">
+                <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
+                <p className="text-green-300 text-sm">{success}</p>
+              </div>
+            )}
+
+            {/* Submit button */}
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full bg-gradient-to-r from-indigo-500 to-cyan-500 text-white py-3 px-4 rounded-xl font-semibold shadow-lg hover:shadow-indigo-500/25 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none group"
+            >
+              {isLoading ? (
+                <div className="flex items-center justify-center gap-2">
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                  <span>Creating account...</span>
+                </div>
+              ) : (
+                <div className="flex items-center justify-center gap-2">
+                  <span>Create Account</span>
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </div>
+              )}
+            </button>
+          </form>
+
+          {/* Footer */}
+          <div className="mt-6 text-center">
+            <p className="text-gray-400 text-sm">
+              Already have an account?{' '}
+              <a 
+                href="/admin/login"
+                className="text-indigo-400 hover:text-indigo-300 font-medium inline-flex items-center gap-1 group transition-all"
+              >
+                Sign in
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </a>
+            </p>
+          </div>
+        </div>
+
+        {/* Decorative elements */}
+        <div className="absolute -top-2 -left-2 w-6 h-6 bg-gradient-to-br from-indigo-500 to-cyan-500 rounded-full opacity-60"></div>
+        <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-gradient-to-br from-violet-500 to-pink-500 rounded-full opacity-60"></div>
+      </div>
+
+      {/* Custom styles for animations */}
+      <style>{`
+        @keyframes blob {
+          0% { transform: translate(0px, 0px) scale(1); }
+          33% { transform: translate(30px, -50px) scale(1.1); }
+          66% { transform: translate(-20px, 20px) scale(0.9); }
+          100% { transform: translate(0px, 0px) scale(1); }
+        }
+        @keyframes shake {
+          0%, 100% { transform: translateX(0); }
+          25% { transform: translateX(-5px); }
+          75% { transform: translateX(5px); }
+        }
+        @keyframes fade-in {
+          from { opacity: 0; transform: translateY(-10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-blob {
+          animation: blob 7s infinite;
+        }
+        .animate-shake {
+          animation: shake 0.3s ease-in-out;
+        }
+        .animate-fade-in {
+          animation: fade-in 0.3s ease-out;
+        }
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+        .animation-delay-4000 {
+          animation-delay: 4s;
+        }
+      `}</style>
     </div>
   );
 };
 
 export default Register;
+
