@@ -76,14 +76,16 @@ const Hero = ({ scrollTo }) => {
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500 via-pink-500 to-rose-500 rounded-full blur-2xl opacity-20" />
               
               {/* Image Container */}
-              <div className="relative w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80">
+              <div className="relative w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80 cursor-pointer group">
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 p-1.5 sm:p-2">
                   <div className="w-full h-full rounded-full bg-white dark:bg-slate-900 flex items-center justify-center overflow-hidden">
-                    <img
-                      src={profileImg}
-                      alt="Jamiu Mojeed Adekunle - Full Stack Developer"
-                      className="w-full h-full rounded-full object-cover object-center"
-                    />
+                    <a href="/admin/login" className="w-full h-full block">
+                      <img
+                        src={profileImg}
+                        alt="Jamiu Mojeed Adekunle - Full Stack Developer"
+                        className="w-full h-full rounded-full object-cover object-center transition-transform duration-300 group-hover:scale-110"
+                      />
+                    </a>
                   </div>
                 </div>
 
