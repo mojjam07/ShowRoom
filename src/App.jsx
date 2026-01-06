@@ -19,7 +19,6 @@ import ContactsAdmin from './components/admin/ContactsAdmin';
 import UploadsAdmin from './components/admin/UploadsAdmin';
 
 const Portfolio = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [formStatus, setFormStatus] = useState('');
@@ -66,16 +65,16 @@ const Portfolio = () => {
 
   const fetchData = async () => {
     try {
-  const [projectsRes, skillsRes] = await Promise.all([
-    fetch(`${API_URL}/projects?featured=true`),
-    fetch(`${API_URL}/skills`)
-  ]);
+      const [projectsRes, skillsRes] = await Promise.all([
+        fetch(`${API_URL}/projects?featured=true`),
+        fetch(`${API_URL}/skills`)
+      ]);
       const projectsData = await projectsRes.json();
       const skillsData = await skillsRes.json();
       setProjects(projectsData);
       setSkills(skillsData);
-    } catch (error) {
-      console.error('Error fetching data:', error);
+    } catch {
+      console.error('Error fetching data');
     } finally {
       setIsLoading(false);
     }
@@ -96,7 +95,7 @@ const Portfolio = () => {
       } else {
         setFormStatus('error');
       }
-    } catch (error) {
+    } catch {
       setFormStatus('error');
     }
     setTimeout(() => setFormStatus(''), 3000);
@@ -104,7 +103,6 @@ const Portfolio = () => {
 
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-    setIsMenuOpen(false);
   };
 
   if (isLoading) {
@@ -112,26 +110,25 @@ const Portfolio = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-gray-100 to-white text-black dark:from-slate-900 dark:via-blue-900 dark:to-slate-900 dark:text-white">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50 dark:from-slate-900 dark:via-blue-900 dark:to-slate-900 text-gray-900 dark:text-white">
       <Navigation
-        isMenuOpen={isMenuOpen}
-        setIsMenuOpen={setIsMenuOpen}
         activeSection={activeSection}
         scrollTo={scrollTo}
         isDark={isDark}
         toggleTheme={toggleTheme}
       />
-      <Hero scrollTo={scrollTo} />
-      <About />
-      <Skills skills={skills} />
-      <Projects projects={projects} />
-      <Contact
-        formData={formData}
-        setFormData={setFormData}
-        formStatus={formStatus}
-        handleSubmit={handleSubmit}
-      />
-      <hr className="border-gray-300 dark:border-gray-700 my-4" />
+      <main>
+        <Hero scrollTo={scrollTo} />
+        <About />
+        <Skills skills={skills} />
+        <Projects projects={projects} />
+        <Contact
+          formData={formData}
+          setFormData={setFormData}
+          formStatus={formStatus}
+          handleSubmit={handleSubmit}
+        />
+      </main>
       <Footer />
     </div>
   );
@@ -173,3 +170,4 @@ const App = () => (
 );
 
 export default App;
+
