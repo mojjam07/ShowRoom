@@ -57,7 +57,7 @@ const ProjectsAdmin = () => {
 
   const handleEdit = (project) => {
     setEditing(project);
-    setFormData({ ...project, tech: project.tech.join(', ') });
+    setFormData({ ...project, tech: project.tech.join(', '), github_link: project.github_link || '' });
   };
 
   const handleDelete = async (id) => {
@@ -99,9 +99,16 @@ const ProjectsAdmin = () => {
           />
           <input
             type="url"
-            placeholder="Link"
+            placeholder="Demo Link"
             value={formData.link}
             onChange={(e) => setFormData({ ...formData, link: e.target.value })}
+            className="p-3 xs:p-2 border rounded dark:bg-gray-700 dark:text-white focus-ring text-sm xs:text-base"
+          />
+          <input
+            type="url"
+            placeholder="GitHub Link"
+            value={formData.github_link}
+            onChange={(e) => setFormData({ ...formData, github_link: e.target.value })}
             className="p-3 xs:p-2 border rounded dark:bg-gray-700 dark:text-white focus-ring text-sm xs:text-base"
           />
           <input
