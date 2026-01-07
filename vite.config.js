@@ -9,16 +9,25 @@ function getBasePath() {
   return env.VITE_BASE_PATH || '/'
 }
 
+// Safely get the API URL for local development
+function getApiTarget() {
+  const env = import.meta.env || {}
+  // For local development, use localhost:5000
+  // For production deployments, the API_URL is handled by the centralized config
+  return env.VITE_API_URL || 'http://localhost:5000'
+}
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:5000',
+        target: getApiTarget(),
         changeOrigin: true,
       },
     },
   },
   base: getBasePath(),
 })
+

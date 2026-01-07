@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
+import { API_URL } from '../../config/api';
 import { Plus, Edit, Trash2, Code, Tag, Save, X, Search } from 'lucide-react';
 import Loading from '../Loading';
 
@@ -15,11 +16,9 @@ const SkillsAdmin = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
-  const API_URL = import.meta.env.VITE_API_URL || '/api';
-
   useEffect(() => {
     fetchSkills();
-  }, [fetchSkills]);
+  }, []);
 
   const fetchSkills = useCallback(async () => {
     try {

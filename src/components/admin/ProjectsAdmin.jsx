@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
+import { API_URL } from '../../config/api';
 import { Edit, Trash2 } from 'lucide-react';
 import Loading from '../Loading';
 
@@ -8,15 +9,13 @@ const ProjectsAdmin = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(null);
-  const [formData, setFormData] = useState({ title: '', description: '', tech: '', link: '', image: '', featured: false });
+  const [formData, setFormData] = useState({ title: '', description: '', tech: '', link: '', image: '', github_link: '', featured: false });
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
-  const API_URL = import.meta.env.VITE_API_URL || '/api';
-
   useEffect(() => {
     fetchProjects();
-  }, [fetchProjects]);
+  }, []);
 
   const fetchProjects = useCallback(async () => {
     try {
@@ -226,3 +225,4 @@ const ProjectsAdmin = () => {
 };
 
 export default ProjectsAdmin;
+

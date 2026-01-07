@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { API_URL } from './config/api';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -64,8 +65,6 @@ const Portfolio = () => {
     return localStorage.getItem('theme') === 'dark';
   });
 
-  const API_URL = import.meta.env.VITE_API_URL || '/api';
-
   useEffect(() => {
     fetchData();
     const handleScroll = () => {
@@ -82,7 +81,7 @@ const Portfolio = () => {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [fetchData]);
+  }, []);
 
   useEffect(() => {
     if (isDark) {

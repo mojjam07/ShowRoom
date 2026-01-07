@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
+import { API_URL } from '../../config/api';
 import { Mail, User, MessageSquare, Phone, Calendar, Search, Filter, Eye, Trash2, Reply } from 'lucide-react';
 import Loading from '../Loading';
 
@@ -12,11 +13,9 @@ const ContactsAdmin = () => {
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState(null);
 
-  const API_URL = import.meta.env.VITE_API_URL || '/api';
-
   useEffect(() => {
     fetchContacts();
-  }, [fetchContacts]);
+  }, []);
 
   const fetchContacts = useCallback(async () => {
     try {

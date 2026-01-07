@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { API_URL } from '../config/api';
 
 const AuthContext = createContext();
 
@@ -16,8 +17,6 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('accessToken') || null);
   const [refreshToken, setRefreshToken] = useState(localStorage.getItem('refreshToken') || null);
   const [loading, setLoading] = useState(true);
-
-  const API_URL = import.meta.env.VITE_API_URL || '/api';
 
   useEffect(() => {
     if (token) {
@@ -151,6 +150,17 @@ export const AuthProvider = ({ children }) => {
     // If 403 (token expired/invalid), try to refresh
     if (response.status === 403) {
       console.log('apiCall: Token expired, attempting refresh...');
+      
+      // Check if this is the refresh endpoint itself - if so, refresh token is invalid
+      if (url.includes('/auth/refresh')) {
+        console.log('apiCall: Refresh token itself is invalid, logging out...');
+        logout();
+        return new Response(JSON.stringify({ error: 'Session expired, please log in again' }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+      
       const newToken = await refreshAccessToken();
       
       if (newToken) {

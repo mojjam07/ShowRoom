@@ -93,8 +93,15 @@ const Skills = ({ skills }) => {
                   </button>
 
                   {/* Skills Grid */}
-                  <div className={`px-4 sm:px-5 pb-4 sm:pb-5 transition-all duration-300 ${isExpanded ? 'max-h-96 opacity-100' : 'max-h-32 opacity-100 overflow-hidden'}`}>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  <div 
+                    className={`px-4 sm:px-5 pb-4 sm:pb-5 transition-all duration-300 ease-in-out ${
+                      isExpanded 
+                        ? 'max-h-96 opacity-100' 
+                        : 'max-h-0 opacity-0 overflow-hidden'
+                    }`}
+                    style={isExpanded ? { maxHeight: '500px' } : {}}
+                  >
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-4 sm:pt-5">
                       {categorySkills.map((skill) => (
                         <div
                           key={skill.id}

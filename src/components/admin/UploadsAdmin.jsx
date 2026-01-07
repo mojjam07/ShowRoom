@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
+import { API_URL } from '../../config/api';
 import { Upload, File, CheckCircle, AlertCircle, Info, FileText, Image, Download, Trash2 } from 'lucide-react';
 
 const UploadsAdmin = () => {
@@ -10,8 +11,6 @@ const UploadsAdmin = () => {
   const [dragActive, setDragActive] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [error, setError] = useState(null);
-
-  const API_URL = import.meta.env.VITE_API_URL || '/api';
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];

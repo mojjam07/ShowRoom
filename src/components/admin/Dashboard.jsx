@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
+import { API_URL } from '../../config/api';
 import { BarChart3, Users, Folder, Code, Mail, TrendingUp, ArrowUp, ArrowDown, Activity } from 'lucide-react';
 import Loading from '../Loading';
 
@@ -9,11 +10,9 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [animatedStats, setAnimatedStats] = useState({});
 
-  const API_URL = import.meta.env.VITE_API_URL || '/api';
-
   useEffect(() => {
     fetchStats();
-  }, [fetchStats]);
+  }, []);
 
   const fetchStats = useCallback(async () => {
     try {
