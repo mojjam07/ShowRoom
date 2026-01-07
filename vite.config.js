@@ -13,7 +13,11 @@ function getBasePath() {
 function getApiTarget() {
   const env = import.meta.env || {}
   // For local development, use localhost:5000
-  // For production deployments, the API_URL is handled by the centralized config
+  // For production deployments, the API is handled by the centralized config in api.js
+  // and doesn't go through the Vite proxy
+  if (env.PROD || env.VERCEL === 'true') {
+    return env.VITE_API_URL || 'https://moorwohs.onrender.com'
+  }
   return env.VITE_API_URL || 'http://localhost:5000'
 }
 

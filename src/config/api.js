@@ -12,10 +12,10 @@ const isProduction = import.meta.env.PROD;
 // Detect Vercel deployment
 const isVercel = import.meta.env.VERCEL === 'true';
 
-// Deployed backend URL - you can also set this as VITE_DEPLOYED_BACKEND_URL
-// If not set, the app will try to detect it from Vercel environment
+// Deployed backend URL - explicitly set to production backend
+// Update this URL when deploying to a new backend
 const deployedBackendUrl = import.meta.env.VITE_DEPLOYED_BACKEND_URL || 
-                           (isVercel ? 'https://portfolio-backend.onrender.com' : '');
+                           'https://moorwohs.onrender.com';
 
 /**
  * Get the appropriate API URL based on environment
@@ -23,17 +23,22 @@ const deployedBackendUrl = import.meta.env.VITE_DEPLOYED_BACKEND_URL ||
  * - Development: Uses localhost:5000 proxy or configured VITE_API_URL
  */
 export function getApiUrl() {
-  // If VITE_API_URL is explicitly set, use it
+  // If VITE_API_URL is explicitly set, use it (overrides all other logic)
   if (configuredApiUrl) {
     return configuredApiUrl;
   }
-  
-  // In production, use the deployed backend
+
+  // In production or on Vercel, always use the deployed backend URL
   if (isProduction || isVercel) {
-    return deployedBackendUrl || '/api';
+    if (deployedBackendUrl) {
+      return deployedBackendUrl;
+    } else {
+      console.warn('No deployed backend URL configured. Falling back to relative /api path.');
+      return '/api';
+    }
   }
-  
-  // Development fallback to local proxy
+
+  // Development: Use local proxy
   return '/api';
 }
 
