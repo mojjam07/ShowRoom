@@ -3,12 +3,13 @@ import { useAuth } from '../../contexts/AuthContext';
 import { Upload, File, CheckCircle, AlertCircle, Info, FileText, Image, Download, Trash2 } from 'lucide-react';
 
 const UploadsAdmin = () => {
-  const { token } = useAuth();
+  const { apiCall } = useAuth();
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState('');
   const [dragActive, setDragActive] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [error, setError] = useState(null);
 
   const API_URL = import.meta.env.VITE_API_URL || '/api';
 
@@ -63,7 +64,7 @@ const UploadsAdmin = () => {
   const handleUpload = async (e) => {
     e.preventDefault();
     if (!file) return;
-
+    setError(null);
     setUploading(true);
     setMessage('');
     setUploadProgress(0);
@@ -76,9 +77,8 @@ const UploadsAdmin = () => {
         setUploadProgress(prev => Math.min(prev + 10, 90));
       }, 200);
 
-      const response = await fetch(`${API_URL}/uploads`, {
+      const response = await apiCall(`${API_URL}/uploads`, {
         method: 'POST',
-        headers: { Authorization: `Bearer ${token}` },
         body: formData,
       });
 
@@ -89,12 +89,16 @@ const UploadsAdmin = () => {
         const data = await response.json();
         setMessage(`File uploaded successfully: ${data.filename}`);
         setFile(null);
+      } else if (response.status === 401) {
+        setError('Session expired. Please log in again.');
+        setMessage('');
       } else {
         const errorData = await response.json();
         setMessage(errorData.message || 'Upload failed');
       }
-    } catch (error) {
-      console.error('Error uploading file:', error);
+    } catch (err) {
+      console.error('Error uploading file:', err);
+      setError(err.message);
       setMessage('Upload failed. Please try again.');
     } finally {
       setUploading(false);
@@ -131,6 +135,13 @@ const UploadsAdmin = () => {
           <p className="text-gray-500 dark:text-gray-400 mt-1">Upload and manage files for your portfolio</p>
         </div>
       </div>
+
+      {/* Error Message */}
+      {error && (
+        <div className="p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+          {error}
+        </div>
+      )}
 
       <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
         <form onSubmit={handleUpload}>

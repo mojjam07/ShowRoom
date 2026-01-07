@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { BarChart3, Users, Folder, Code, Mail, TrendingUp, ArrowUp, ArrowDown, Activity } from 'lucide-react';
 import Loading from '../Loading';
@@ -13,9 +13,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchStats();
-  }, []);
+  }, [fetchStats]);
 
-  const fetchStats = async () => {
+  const fetchStats = useCallback(async () => {
     try {
       const response = await fetch(`${API_URL}/stats`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -35,7 +35,7 @@ const Dashboard = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [token, API_URL]);
 
   // Animate numbers on load
   useEffect(() => {

@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext();
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
@@ -133,6 +134,13 @@ export const AuthProvider = ({ children }) => {
 
   // API call wrapper to handle token refresh
   const apiCall = async (url, options = {}) => {
+    if (!token) {
+      return new Response(JSON.stringify({ error: 'No authentication token' }), {
+        status: 401,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
     const headers = {
       ...options.headers,
       Authorization: `Bearer ${token}`,
@@ -140,12 +148,24 @@ export const AuthProvider = ({ children }) => {
 
     let response = await fetch(url, { ...options, headers });
 
+    // If 403 (token expired/invalid), try to refresh
     if (response.status === 403) {
-      // Token expired, try to refresh
+      console.log('apiCall: Token expired, attempting refresh...');
       const newToken = await refreshAccessToken();
+      
       if (newToken) {
+        console.log('apiCall: Token refreshed successfully, retrying request...');
         headers.Authorization = `Bearer ${newToken}`;
         response = await fetch(url, { ...options, headers });
+      } else {
+        console.log('apiCall: Refresh failed, logging out user...');
+        // Refresh failed - logout user
+        logout();
+        // Return a response that indicates auth failure
+        return new Response(JSON.stringify({ error: 'Session expired, please log in again' }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json' }
+        });
       }
     }
 

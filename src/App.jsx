@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Navigation from './components/Navigation';
@@ -82,7 +82,7 @@ const Portfolio = () => {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [fetchData]);
 
   useEffect(() => {
     if (isDark) {
@@ -98,7 +98,7 @@ const Portfolio = () => {
     setIsDark(!isDark);
   };
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     // Set initial state with fallback data for instant UI render
     setProjects(fallbackProjects);
     setSkills(fallbackSkills);
@@ -127,7 +127,7 @@ const Portfolio = () => {
     
     // Always set loading to false after timeout (max 3 seconds)
     setIsLoading(false);
-  };
+  }, [API_URL]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

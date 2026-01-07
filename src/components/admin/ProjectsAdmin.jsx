@@ -1,57 +1,69 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
-import { Plus, Edit, Trash2 } from 'lucide-react';
+import { Edit, Trash2 } from 'lucide-react';
 import Loading from '../Loading';
 
 const ProjectsAdmin = () => {
-  const { token } = useAuth();
+  const { apiCall } = useAuth();
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(null);
   const [formData, setFormData] = useState({ title: '', description: '', tech: '', link: '', image: '', featured: false });
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
 
   const API_URL = import.meta.env.VITE_API_URL || '/api';
 
   useEffect(() => {
     fetchProjects();
-  }, []);
+  }, [fetchProjects]);
 
-  const fetchProjects = async () => {
+  const fetchProjects = useCallback(async () => {
     try {
-      const response = await fetch(`${API_URL}/projects`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await apiCall(`${API_URL}/projects`);
       if (response.ok) {
         const data = await response.json();
         setProjects(data);
+      } else if (response.status === 401) {
+        setError('Session expired. Please log in again.');
       }
-    } catch (error) {
-      console.error('Error fetching projects:', error);
+    } catch (err) {
+      console.error('Error fetching projects:', err);
+      setError(err.message);
     } finally {
       setLoading(false);
     }
-  };
+  }, [apiCall, API_URL]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(null);
+    setSuccess(null);
     const method = editing ? 'PUT' : 'POST';
     const url = editing ? `${API_URL}/projects/${editing.id}` : `${API_URL}/projects`;
     try {
-      const response = await fetch(url, {
+      const response = await apiCall(url, {
         method,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...formData, tech: formData.tech.split(',').map(t => t.trim()) }),
       });
       if (response.ok) {
+        setSuccess(editing ? 'Project updated successfully!' : 'Project created successfully!');
         fetchProjects();
         setEditing(null);
         setFormData({ title: '', description: '', tech: '', link: '', image: '', featured: false });
+        // Clear success message after 3 seconds
+        setTimeout(() => setSuccess(null), 3000);
+      } else if (response.status === 401) {
+        setError('Session expired. Please log in again.');
+      } else {
+        const errorData = await response.json();
+        setError(errorData.error || 'Failed to save project');
       }
-    } catch (error) {
-      console.error('Error saving project:', error);
+    } catch (err) {
+      console.error('Error saving project:', err);
+      setError(err.message);
     }
   };
 
@@ -63,13 +75,17 @@ const ProjectsAdmin = () => {
   const handleDelete = async (id) => {
     if (confirm('Are you sure?')) {
       try {
-        const response = await fetch(`${API_URL}/projects/${id}`, {
+        const response = await apiCall(`${API_URL}/projects/${id}`, {
           method: 'DELETE',
-          headers: { Authorization: `Bearer ${token}` },
         });
-        if (response.ok) fetchProjects();
-      } catch (error) {
-        console.error('Error deleting project:', error);
+        if (response.ok) {
+          fetchProjects();
+        } else if (response.status === 401) {
+          setError('Session expired. Please log in again.');
+        }
+      } catch (err) {
+        console.error('Error deleting project:', err);
+        setError(err.message);
       }
     }
   };
@@ -79,6 +95,19 @@ const ProjectsAdmin = () => {
   return (
     <div>
       <h1 className="text-2xl xs:text-3xl font-bold mb-4 xs:mb-6 text-gray-900 dark:text-white">Manage Projects</h1>
+      
+      {/* Error and Success Messages */}
+      {error && (
+        <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+          {error}
+        </div>
+      )}
+      {success && (
+        <div className="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+          {success}
+        </div>
+      )}
+      
       <form onSubmit={handleSubmit} className="mb-4 xs:mb-6 bg-white dark:bg-gray-800 p-4 xs:p-6 rounded-lg shadow-md">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4">
           <input

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { Plus, Edit, Trash2, Code, Tag, Save, X, Search } from 'lucide-react';
 import Loading from '../Loading';
 
 const SkillsAdmin = () => {
-  const { token } = useAuth();
+  const { apiCall } = useAuth();
   const [skills, setSkills] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(null);
@@ -12,50 +12,61 @@ const SkillsAdmin = () => {
   const [showForm, setShowForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
 
   const API_URL = import.meta.env.VITE_API_URL || '/api';
 
   useEffect(() => {
     fetchSkills();
-  }, []);
+  }, [fetchSkills]);
 
-  const fetchSkills = async () => {
+  const fetchSkills = useCallback(async () => {
     try {
-      const response = await fetch(`${API_URL}/skills`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await apiCall(`${API_URL}/skills`);
       if (response.ok) {
         const data = await response.json();
         setSkills(data);
+      } else if (response.status === 401) {
+        setError('Session expired. Please log in again.');
       }
-    } catch (error) {
-      console.error('Error fetching skills:', error);
+    } catch (err) {
+      console.error('Error fetching skills:', err);
+      setError(err.message);
     } finally {
       setLoading(false);
     }
-  };
+  }, [apiCall, API_URL]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(null);
+    setSuccess(null);
     const method = editing ? 'PUT' : 'POST';
     const url = editing ? `${API_URL}/skills/${editing.id}` : `${API_URL}/skills`;
     try {
-      const response = await fetch(url, {
+      const response = await apiCall(url, {
         method,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
       if (response.ok) {
+        setSuccess(editing ? 'Skill updated successfully!' : 'Skill created successfully!');
         fetchSkills();
         setEditing(null);
         setFormData({ name: '', category: '' });
         setShowForm(false);
+        setTimeout(() => setSuccess(null), 3000);
+      } else if (response.status === 401) {
+        setError('Session expired. Please log in again.');
+      } else {
+        const errorData = await response.json();
+        setError(errorData.error || 'Failed to save skill');
       }
-    } catch (error) {
-      console.error('Error saving skill:', error);
+    } catch (err) {
+      console.error('Error saving skill:', err);
+      setError(err.message);
     }
   };
 
@@ -68,13 +79,17 @@ const SkillsAdmin = () => {
   const handleDelete = async (id) => {
     if (confirm('Are you sure you want to delete this skill?')) {
       try {
-        const response = await fetch(`${API_URL}/skills/${id}`, {
+        const response = await apiCall(`${API_URL}/skills/${id}`, {
           method: 'DELETE',
-          headers: { Authorization: `Bearer ${token}` },
         });
-        if (response.ok) fetchSkills();
-      } catch (error) {
-        console.error('Error deleting skill:', error);
+        if (response.ok) {
+          fetchSkills();
+        } else if (response.status === 401) {
+          setError('Session expired. Please log in again.');
+        }
+      } catch (err) {
+        console.error('Error deleting skill:', err);
+        setError(err.message);
       }
     }
   };
@@ -128,6 +143,18 @@ const SkillsAdmin = () => {
           Add Skill
         </button>
       </div>
+
+      {/* Error and Success Messages */}
+      {error && (
+        <div className="p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+          {error}
+        </div>
+      )}
+      {success && (
+        <div className="p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+          {success}
+        </div>
+      )}
 
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-4">

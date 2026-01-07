@@ -1,37 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { Mail, User, MessageSquare, Phone, Calendar, Search, Filter, Eye, Trash2, Reply } from 'lucide-react';
 import Loading from '../Loading';
 
 const ContactsAdmin = () => {
-  const { token } = useAuth();
+  const { apiCall } = useAuth();
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedContact, setSelectedContact] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [error, setError] = useState(null);
 
   const API_URL = import.meta.env.VITE_API_URL || '/api';
 
   useEffect(() => {
     fetchContacts();
-  }, []);
+  }, [fetchContacts]);
 
-  const fetchContacts = async () => {
+  const fetchContacts = useCallback(async () => {
     try {
-      const response = await fetch(`${API_URL}/contacts`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await apiCall(`${API_URL}/contacts`);
       if (response.ok) {
         const data = await response.json();
         setContacts(data);
+      } else if (response.status === 401) {
+        setError('Session expired. Please log in again.');
       }
-    } catch (error) {
-      console.error('Error fetching contacts:', error);
+    } catch (err) {
+      console.error('Error fetching contacts:', err);
+      setError(err.message);
     } finally {
       setLoading(false);
     }
-  };
+  }, [apiCall, API_URL]);
 
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -42,9 +44,8 @@ const ContactsAdmin = () => {
   const handleDelete = async (id) => {
     if (confirm('Are you sure you want to delete this contact?')) {
       try {
-        const response = await fetch(`${API_URL}/contacts/${id}`, {
+        const response = await apiCall(`${API_URL}/contacts/${id}`, {
           method: 'DELETE',
-          headers: { Authorization: `Bearer ${token}` },
         });
         if (response.ok) {
           fetchContacts();
@@ -52,9 +53,12 @@ const ContactsAdmin = () => {
             setSelectedContact(null);
             setShowModal(false);
           }
+        } else if (response.status === 401) {
+          setError('Session expired. Please log in again.');
         }
-      } catch (error) {
-        console.error('Error deleting contact:', error);
+      } catch (err) {
+        console.error('Error deleting contact:', err);
+        setError(err.message);
       }
     }
   };
@@ -97,6 +101,13 @@ const ContactsAdmin = () => {
           </div>
         </div>
       </div>
+
+      {/* Error Message */}
+      {error && (
+        <div className="p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+          {error}
+        </div>
+      )}
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
