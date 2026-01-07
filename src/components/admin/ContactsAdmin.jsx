@@ -13,10 +13,6 @@ const ContactsAdmin = () => {
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    fetchContacts();
-  }, []);
-
   const fetchContacts = useCallback(async () => {
     try {
       const response = await apiCall(`${API_URL}/contacts`);
@@ -32,7 +28,11 @@ const ContactsAdmin = () => {
     } finally {
       setLoading(false);
     }
-  }, [apiCall, API_URL]);
+  }, [apiCall]);
+
+  useEffect(() => {
+    fetchContacts();
+  }, [fetchContacts]);
 
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||

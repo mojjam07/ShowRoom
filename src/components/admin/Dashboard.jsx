@@ -10,10 +10,6 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [animatedStats, setAnimatedStats] = useState({});
 
-  useEffect(() => {
-    fetchStats();
-  }, []);
-
   const fetchStats = useCallback(async () => {
     try {
       const response = await fetch(`${API_URL}/stats`, {
@@ -34,7 +30,11 @@ const Dashboard = () => {
     } finally {
       setLoading(false);
     }
-  }, [token, API_URL]);
+  }, [token]);
+
+  useEffect(() => {
+    fetchStats();
+  }, [fetchStats]);
 
   // Animate numbers on load
   useEffect(() => {

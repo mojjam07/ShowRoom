@@ -16,10 +16,6 @@ const SkillsAdmin = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
-  useEffect(() => {
-    fetchSkills();
-  }, []);
-
   const fetchSkills = useCallback(async () => {
     try {
       const response = await apiCall(`${API_URL}/skills`);
@@ -35,7 +31,11 @@ const SkillsAdmin = () => {
     } finally {
       setLoading(false);
     }
-  }, [apiCall, API_URL]);
+  }, [apiCall]);
+
+  useEffect(() => {
+    fetchSkills();
+  }, [fetchSkills]);
 
 
   const handleSubmit = async (e) => {

@@ -13,10 +13,6 @@ const ProjectsAdmin = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
-  useEffect(() => {
-    fetchProjects();
-  }, []);
-
   const fetchProjects = useCallback(async () => {
     try {
       const response = await apiCall(`${API_URL}/projects`);
@@ -32,7 +28,11 @@ const ProjectsAdmin = () => {
     } finally {
       setLoading(false);
     }
-  }, [apiCall, API_URL]);
+  }, [apiCall]);
+
+  useEffect(() => {
+    fetchProjects();
+  }, [fetchProjects]);
 
 
   const handleSubmit = async (e) => {
@@ -51,7 +51,7 @@ const ProjectsAdmin = () => {
         setSuccess(editing ? 'Project updated successfully!' : 'Project created successfully!');
         fetchProjects();
         setEditing(null);
-        setFormData({ title: '', description: '', tech: '', link: '', image: '', featured: false });
+        setFormData({ title: '', description: '', tech: '', link: '', image: '', github_link: '', featured: false });
         // Clear success message after 3 seconds
         setTimeout(() => setSuccess(null), 3000);
       } else if (response.status === 401) {
