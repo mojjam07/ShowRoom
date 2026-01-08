@@ -49,17 +49,14 @@ const Register = () => {
     }
 
     setIsLoading(true);
-    console.log('Register: Submitting form...');
 
     const result = await register(email, password);
     setIsLoading(false);
 
     if (result.success) {
-      console.log('Register: Success');
       setSuccess('Registration successful! Redirecting to login...');
       setTimeout(() => navigate('/admin/login'), 2000);
     } else {
-      console.log('Register: Failed with error:', result.error);
       setError(result.error || 'Registration failed. Please try again.');
     }
   };

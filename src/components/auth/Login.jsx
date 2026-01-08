@@ -23,16 +23,12 @@ const Login = () => {
     setError('');
     setIsLoading(true);
 
-    console.log('Login: Submitting form...');
-
     const result = await login(email, password);
     setIsLoading(false);
 
     if (result.success) {
-      console.log('Login: Success, redirecting to admin');
       navigate('/admin');
     } else {
-      console.log('Login: Failed with error:', result.error);
       setError(result.error || 'Login failed. Please check your credentials.');
     }
   };

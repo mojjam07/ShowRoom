@@ -20,14 +20,12 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (token) {
-      // Optionally verify token with backend
-      setUser({}); // Mock user, in real app decode JWT
+      setUser({});
     }
     setLoading(false);
   }, [token]);
 
   const login = async (email, password) => {
-    console.log('AuthContext: Attempting login for:', email);
     try {
       const response = await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
@@ -35,30 +33,24 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify({ email, password }),
       });
 
-      console.log('AuthContext: Login response status:', response.status);
-
       if (response.ok) {
         const data = await response.json();
-        console.log('AuthContext: Login successful');
         setToken(data.accessToken);
         setRefreshToken(data.refreshToken);
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('refreshToken', data.refreshToken);
-        setUser({}); // Set user data if returned
+        setUser({});
         return { success: true };
       } else {
         const errorData = await response.json();
-        console.error('AuthContext: Login failed:', errorData.error);
         return { success: false, error: errorData.error || 'Login failed' };
       }
     } catch (error) {
-      console.error('AuthContext: Login network error:', error.message);
       return { success: false, error: `Network error: ${error.message}` };
     }
   };
 
   const register = async (email, password) => {
-    console.log('AuthContext: Attempting registration for:', email);
     try {
       const response = await fetch(`${API_URL}/auth/register`, {
         method: 'POST',
@@ -66,18 +58,13 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify({ email, password }),
       });
 
-      console.log('AuthContext: Register response status:', response.status);
-
       if (response.ok) {
-        console.log('AuthContext: Registration successful');
         return { success: true };
       } else {
         const errorData = await response.json();
-        console.error('AuthContext: Registration failed:', errorData.error);
         return { success: false, error: errorData.error || 'Registration failed' };
       }
     } catch (error) {
-      console.error('AuthContext: Registration network error:', error.message);
       return { success: false, error: `Network error: ${error.message}` };
     }
   };
@@ -91,8 +78,8 @@ export const AuthProvider = ({ children }) => {
           body: JSON.stringify({ refreshToken }),
         });
       }
-    } catch (error) {
-      console.error('Logout error:', error);
+    } catch {
+      // Silent fail on logout
     }
     setToken(null);
     setRefreshToken(null);
@@ -124,8 +111,7 @@ export const AuthProvider = ({ children }) => {
         logout();
         return null;
       }
-    } catch (error) {
-      console.error('Refresh token error:', error);
+    } catch {
       logout();
       return null;
     }
@@ -149,11 +135,8 @@ export const AuthProvider = ({ children }) => {
 
     // If 403 (token expired/invalid), try to refresh
     if (response.status === 403) {
-      console.log('apiCall: Token expired, attempting refresh...');
-      
       // Check if this is the refresh endpoint itself - if so, refresh token is invalid
       if (url.includes('/auth/refresh')) {
-        console.log('apiCall: Refresh token itself is invalid, logging out...');
         logout();
         return new Response(JSON.stringify({ error: 'Session expired, please log in again' }), {
           status: 401,
@@ -164,14 +147,10 @@ export const AuthProvider = ({ children }) => {
       const newToken = await refreshAccessToken();
       
       if (newToken) {
-        console.log('apiCall: Token refreshed successfully, retrying request...');
         headers.Authorization = `Bearer ${newToken}`;
         response = await fetch(url, { ...options, headers });
       } else {
-        console.log('apiCall: Refresh failed, logging out user...');
-        // Refresh failed - logout user
         logout();
-        // Return a response that indicates auth failure
         return new Response(JSON.stringify({ error: 'Session expired, please log in again' }), {
           status: 401,
           headers: { 'Content-Type': 'application/json' }
@@ -196,3 +175,4 @@ export const AuthProvider = ({ children }) => {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
+
