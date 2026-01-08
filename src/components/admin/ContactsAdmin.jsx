@@ -12,6 +12,7 @@ const ContactsAdmin = () => {
   const [selectedContact, setSelectedContact] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState(null);
+  const [deleteModal, setDeleteModal] = useState({ show: false, id: null, name: '', email: '' });
 
   const fetchContacts = useCallback(async () => {
     try {
@@ -40,25 +41,30 @@ const ContactsAdmin = () => {
     contact.message.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleDelete = async (id) => {
-    if (confirm('Are you sure you want to delete this contact?')) {
-      try {
-        const response = await apiCall(`${API_URL}/contacts/${id}`, {
-          method: 'DELETE',
-        });
-        if (response.ok) {
-          fetchContacts();
-          if (selectedContact?.id === id) {
-            setSelectedContact(null);
-            setShowModal(false);
-          }
-        } else if (response.status === 401) {
-          setError('Session expired. Please log in again.');
+  const handleDeleteClick = (id, name, email) => {
+    setDeleteModal({ show: true, id, name, email });
+  };
+
+  const confirmDelete = async () => {
+    if (!deleteModal.id) return;
+    try {
+      const response = await apiCall(`${API_URL}/contacts/${deleteModal.id}`, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        fetchContacts();
+        if (selectedContact?.id === deleteModal.id) {
+          setSelectedContact(null);
+          setShowModal(false);
         }
-      } catch (err) {
-        console.error('Error deleting contact:', err);
-        setError(err.message);
+      } else if (response.status === 401) {
+        setError('Session expired. Please log in again.');
       }
+    } catch (err) {
+      console.error('Error deleting contact:', err);
+      setError(err.message);
+    } finally {
+      setDeleteModal({ show: false, id: null, name: '', email: '' });
     }
   };
 
@@ -226,7 +232,7 @@ const ContactsAdmin = () => {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleDelete(contact.id);
+                          handleDeleteClick(contact.id, contact.name, contact.email);
                         }}
                         className="px-3 py-1.5 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-lg text-sm font-medium hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors flex items-center gap-1"
                       >
@@ -322,7 +328,7 @@ const ContactsAdmin = () => {
                     Reply via Email
                   </button>
                   <button
-                    onClick={() => handleDelete(selectedContact.id)}
+                    onClick={() => handleDeleteClick(selectedContact.id, selectedContact.name, selectedContact.email)}
                     className="px-6 py-3 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-xl hover:bg-red-200 dark:hover:bg-red-900/50 transition-all flex items-center justify-center gap-2"
                   >
                     <Trash2 className="w-5 h-5" />
@@ -330,6 +336,37 @@ const ContactsAdmin = () => {
                   </button>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {deleteModal.show && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-6">
+            <div className="flex items-center justify-center mb-4">
+              <div className="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
+                <Trash2 className="w-6 h-6 text-red-600 dark:text-red-400" />
+              </div>
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white text-center mb-2">Delete Contact</h3>
+            <p className="text-gray-600 dark:text-gray-400 text-center mb-6">
+              Are you sure you want to delete the contact from "{deleteModal.name}" ({deleteModal.email})? This action cannot be undone.
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={confirmDelete}
+                className="flex-1 bg-red-600 text-white py-3 rounded-xl font-semibold hover:bg-red-700 transition-all disabled:opacity-50"
+              >
+                Delete
+              </button>
+              <button
+                onClick={() => setDeleteModal({ show: false, id: null, name: '', email: '' })}
+                className="flex-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 py-3 rounded-xl font-semibold hover:bg-gray-200 dark:hover:bg-gray-600 transition-all"
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </div>

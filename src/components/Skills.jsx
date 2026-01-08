@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Code, Server, Wrench, Cloud, Star, ChevronDown, ChevronUp } from 'lucide-react';
 
 const Skills = ({ skills }) => {
-  const [expandedCategory, setExpandedCategory] = useState(null);
+  const [expandedCategory, setExpandedCategory] = useState(new Set());
 
   // Icon mapping for categories
   const categoryIcons = {
@@ -32,7 +32,15 @@ const Skills = ({ skills }) => {
   }, {});
 
   const toggleCategory = (category) => {
-    setExpandedCategory(expandedCategory === category ? null : category);
+    setExpandedCategory(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(category)) {
+        newSet.delete(category);
+      } else {
+        newSet.add(category);
+      }
+      return newSet;
+    });
   };
 
   return (
@@ -55,7 +63,7 @@ const Skills = ({ skills }) => {
             {Object.entries(groupedSkills).map(([category, categorySkills]) => {
               const IconComponent = categoryIcons[category.toLowerCase()] || categoryIcons.default;
               const colors = categoryColors[category.toLowerCase()] || categoryColors.default;
-              const isExpanded = expandedCategory === category;
+              const isExpanded = expandedCategory.has(category);
 
               return (
                 <div
@@ -105,10 +113,10 @@ const Skills = ({ skills }) => {
                       {categorySkills.map((skill) => (
                         <div
                           key={skill.id}
-                          className="group/skill relative p-2.5 rounded-lg bg-white dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600/50 hover:border-purple-400 transition-all duration-300 cursor-default"
+                          className="skill-item relative p-2.5 rounded-lg bg-white dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600/50 hover:border-purple-400 transition-all duration-300 cursor-default"
                         >
                           <div className="flex items-center justify-center text-center">
-                            <span className="font-medium text-xs sm:text-sm text-gray-700 dark:text-gray-300 group-hover/skill:text-purple-600 dark:group-hover/skill:text-purple-400 transition-colors">
+                            <span className="font-medium text-xs sm:text-sm text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
                               {skill.name}
                             </span>
                           </div>

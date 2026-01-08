@@ -35,7 +35,7 @@ const Portfolio = () => {
   const fetchData = useCallback(async () => {
     try {
       const [projectsRes, skillsRes] = await Promise.all([
-        fetch(`${API_URL}/projects?featured=true`),
+        fetch(`${API_URL}/projects`),
         fetch(`${API_URL}/skills`)
       ]);
 

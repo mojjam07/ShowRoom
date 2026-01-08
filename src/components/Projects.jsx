@@ -62,7 +62,7 @@ const Projects = ({ projects }) => {
                   {/* Hover Content */}
                   <div className={`absolute bottom-3 left-3 right-3 transform transition-all duration-300 ${hoveredProject === project.id ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
                     <a
-                      href={project.link}
+                      href={project.github_link}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 px-3 py-2 bg-white text-purple-600 rounded-full font-medium text-xs hover:bg-purple-50 transition-colors shadow-lg"

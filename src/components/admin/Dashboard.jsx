@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../../config/api';
 import { BarChart3, Users, Folder, Code, Mail, TrendingUp, ArrowUp, ArrowDown, Activity } from 'lucide-react';
 import Loading from '../Loading';
 
 const Dashboard = () => {
   const { token } = useAuth();
+  const navigate = useNavigate();
   const [stats, setStats] = useState({});
   const [loading, setLoading] = useState(true);
   const [animatedStats, setAnimatedStats] = useState({});
@@ -123,7 +125,10 @@ const Dashboard = () => {
           <button className="px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 rounded-xl border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all shadow-sm">
             Export Report
           </button>
-          <button className="px-4 py-2 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-xl hover:shadow-lg hover:shadow-violet-500/25 transition-all">
+          <button 
+            onClick={() => navigate('/admin/projects')}
+            className="px-4 py-2 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-xl hover:shadow-lg hover:shadow-violet-500/25 transition-all cursor-pointer"
+          >
             Add New Project
           </button>
         </div>

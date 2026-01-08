@@ -15,6 +15,8 @@ const SkillsAdmin = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [deleteModal, setDeleteModal] = useState({ show: false, id: null, name: '', category: '' });
 
   const fetchSkills = useCallback(async () => {
     try {
@@ -42,6 +44,7 @@ const SkillsAdmin = () => {
     e.preventDefault();
     setError(null);
     setSuccess(null);
+    setIsSubmitting(true);
     const method = editing ? 'PUT' : 'POST';
     const url = editing ? `${API_URL}/skills/${editing.id}` : `${API_URL}/skills`;
     try {
@@ -66,6 +69,8 @@ const SkillsAdmin = () => {
     } catch (err) {
       console.error('Error saving skill:', err);
       setError(err.message);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -75,21 +80,26 @@ const SkillsAdmin = () => {
     setShowForm(true);
   };
 
-  const handleDelete = async (id) => {
-    if (confirm('Are you sure you want to delete this skill?')) {
-      try {
-        const response = await apiCall(`${API_URL}/skills/${id}`, {
-          method: 'DELETE',
-        });
-        if (response.ok) {
-          fetchSkills();
-        } else if (response.status === 401) {
-          setError('Session expired. Please log in again.');
-        }
-      } catch (err) {
-        console.error('Error deleting skill:', err);
-        setError(err.message);
+  const handleDeleteClick = (id, name, category) => {
+    setDeleteModal({ show: true, id, name, category });
+  };
+
+  const confirmDelete = async () => {
+    if (!deleteModal.id) return;
+    try {
+      const response = await apiCall(`${API_URL}/skills/${deleteModal.id}`, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        fetchSkills();
+      } else if (response.status === 401) {
+        setError('Session expired. Please log in again.');
       }
+    } catch (err) {
+      console.error('Error deleting skill:', err);
+      setError(err.message);
+    } finally {
+      setDeleteModal({ show: false, id: null, name: '', category: '' });
     }
   };
 
@@ -236,15 +246,26 @@ const SkillsAdmin = () => {
               <div className="flex gap-3 pt-4 border-t border-gray-100 dark:border-gray-700">
                 <button
                   type="submit"
-                  className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 px-4 rounded-xl font-semibold shadow-lg hover:shadow-green-500/25 focus:outline-none focus:ring-2 focus:ring-green-500/50 transform hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                  disabled={isSubmitting}
+                  className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 px-4 rounded-xl font-semibold shadow-lg hover:shadow-green-500/25 focus:outline-none focus:ring-2 focus:ring-green-500/50 transform hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <Save className="w-5 h-5" />
-                  {editing ? 'Update Skill' : 'Add Skill'}
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      Saving...
+                    </>
+                  ) : (
+                    <>
+                      <Save className="w-5 h-5" />
+                      {editing ? 'Update Skill' : 'Add Skill'}
+                    </>
+                  )}
                 </button>
                 <button
                   type="button"
                   onClick={resetForm}
-                  className="px-6 py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-all"
+                  disabled={isSubmitting}
+                  className="px-6 py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-all disabled:opacity-50"
                 >
                   Cancel
                 </button>
@@ -286,7 +307,7 @@ const SkillsAdmin = () => {
                           <Edit className="w-4 h-4" />
                         </button>
                         <button
-                          onClick={() => handleDelete(skill.id)}
+                          onClick={() => handleDeleteClick(skill.id, skill.name, skill.category)}
                           className="p-1.5 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
                           title="Delete"
                         >
@@ -325,6 +346,37 @@ const SkillsAdmin = () => {
               Add Your First Skill
             </button>
           )}
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {deleteModal.show && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-6">
+            <div className="flex items-center justify-center mb-4">
+              <div className="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
+                <Trash2 className="w-6 h-6 text-red-600 dark:text-red-400" />
+              </div>
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white text-center mb-2">Delete Skill</h3>
+            <p className="text-gray-600 dark:text-gray-400 text-center mb-6">
+              Are you sure you want to delete "{deleteModal.name}" from {deleteModal.category}? This action cannot be undone.
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={confirmDelete}
+                className="flex-1 bg-red-600 text-white py-3 rounded-xl font-semibold hover:bg-red-700 transition-all disabled:opacity-50"
+              >
+                Delete
+              </button>
+              <button
+                onClick={() => setDeleteModal({ show: false, id: null, name: '', category: '' })}
+                className="flex-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 py-3 rounded-xl font-semibold hover:bg-gray-200 dark:hover:bg-gray-600 transition-all"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
