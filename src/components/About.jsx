@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Code, Briefcase, Sparkles, Zap, Target, Lightbulb } from 'lucide-react';
+import { API_URL } from '../config/api';
 
 const About = () => {
   const [animatedStats, setAnimatedStats] = useState({
@@ -7,6 +8,8 @@ const About = () => {
     projects: 0,
     satisfaction: 100
   });
+  const [totalProjects, setTotalProjects] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   // Calculate years of experience from October 2022
   const calculateYearsOfExperience = () => {
@@ -16,28 +19,50 @@ const About = () => {
     return Math.floor(years);
   };
 
-  // Total projects count
-  const totalProjects = 6;
+  // Fetch total projects from backend
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await fetch(`${API_URL}/stats`);
+        if (response.ok) {
+          const stats = await response.json();
+          setTotalProjects(stats.totalProjects || 0);
+        } else {
+          console.error('Failed to fetch stats');
+          setTotalProjects(6); // fallback
+        }
+      } catch (error) {
+        console.error('Error fetching stats:', error);
+        setTotalProjects(6); // fallback
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStats();
+  }, []);
 
   useEffect(() => {
+    if (totalProjects === 0) return; // Wait for data to load
+
     const duration = 2000; // Animation duration in ms
     const steps = 60; // Number of animation steps
     const yearsTarget = calculateYearsOfExperience();
-    
+
     let step = 0;
     const interval = duration / steps;
-    
+
     const timer = setInterval(() => {
       step++;
       const progress = step / steps;
       const easeOut = 1 - Math.pow(1 - progress, 3); // Ease out cubic
-      
+
       setAnimatedStats({
         years: Math.floor(easeOut * yearsTarget),
         projects: Math.floor(easeOut * totalProjects),
         satisfaction: Math.floor(easeOut * 100)
       });
-      
+
       if (step >= steps) {
         clearInterval(timer);
         setAnimatedStats({
@@ -47,9 +72,9 @@ const About = () => {
         });
       }
     }, interval);
-    
+
     return () => clearInterval(timer);
-  }, []);
+  }, [totalProjects]);
 
   const stats = [
     { icon: Code, value: `${animatedStats.years}+`, label: 'Years Experience', color: 'purple' },

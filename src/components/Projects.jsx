@@ -3,6 +3,7 @@ import { Code, ExternalLink, Github, Star } from 'lucide-react';
 
 const Projects = ({ projects }) => {
   const [hoveredProject, setHoveredProject] = useState(null);
+  const [visibleProjects, setVisibleProjects] = useState(6);
 
   return (
     <section id="projects" className="flex items-center px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
@@ -138,7 +139,15 @@ const Projects = ({ projects }) => {
         )}
 
         {/* View All Projects CTA */}
-        <div className="text-center mt-8">
+        <div className="text-center mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center">
+          {visibleProjects < projects.length && (
+            <button
+              onClick={() => setVisibleProjects(prev => Math.min(prev + 3, projects.length))}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full font-medium hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/30 text-sm"
+            >
+              View More Projects
+            </button>
+          )}
           <a
             href="https://github.com/mojjam07"
             target="_blank"

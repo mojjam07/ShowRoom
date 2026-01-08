@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { API_URL } from '../../config/api';
-import { Plus, Edit, Trash2, Code, Tag, Save, X, Search } from 'lucide-react';
+import { Plus, Edit, Trash2, Code, Tag, Save, X, Search, RefreshCw, AlertTriangle } from 'lucide-react';
 import Loading from '../Loading';
 
 const SkillsAdmin = () => {
   const { apiCall } = useAuth();
   const [skills, setSkills] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const [editing, setEditing] = useState(null);
   const [formData, setFormData] = useState({ name: '', category: '' });
   const [showForm, setShowForm] = useState(false);
@@ -18,20 +19,31 @@ const SkillsAdmin = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [deleteModal, setDeleteModal] = useState({ show: false, id: null, name: '', category: '' });
 
-  const fetchSkills = useCallback(async () => {
+  const fetchSkills = useCallback(async (showRefreshIndicator = false) => {
     try {
+      if (showRefreshIndicator) {
+        setRefreshing(true);
+      }
       const response = await apiCall(`${API_URL}/skills`);
       if (response.ok) {
         const data = await response.json();
         setSkills(data);
+        setError(null); // Clear error on successful fetch
       } else if (response.status === 401) {
         setError('Session expired. Please log in again.');
+      } else if (response.status === 500) {
+        const errorData = await response.json();
+        setError(`Server error: ${errorData.error || 'Unknown error'}. This may be due to RLS policies.`);
+      } else {
+        const errorData = await response.json();
+        setError(errorData.error || 'Failed to fetch skills');
       }
     } catch (err) {
       console.error('Error fetching skills:', err);
-      setError(err.message);
+      setError(`Connection error: ${err.message}. Check if Supabase RLS policies are blocking access.`);
     } finally {
       setLoading(false);
+      setRefreshing(false);
     }
   }, [apiCall]);
 
@@ -144,19 +156,40 @@ const SkillsAdmin = () => {
           </h1>
           <p className="text-gray-500 dark:text-gray-400 mt-1">Organize and manage your technical skills</p>
         </div>
-        <button
-          onClick={() => setShowForm(true)}
-          className="px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:shadow-lg hover:shadow-green-500/25 transition-all flex items-center gap-2"
-        >
-          <Plus className="w-4 h-4" />
-          Add Skill
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => fetchSkills(true)}
+            disabled={refreshing}
+            className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-all flex items-center gap-2 disabled:opacity-50"
+            title="Refresh skills"
+          >
+            <RefreshCw className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} />
+            <span>Refresh</span>
+          </button>
+          <button
+            onClick={() => setShowForm(true)}
+            className="px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:shadow-lg hover:shadow-green-500/25 transition-all flex items-center gap-2"
+          >
+            <Plus className="w-4 h-4" />
+            Add Skill
+          </button>
+        </div>
       </div>
 
       {/* Error and Success Messages */}
       {error && (
-        <div className="p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
-          {error}
+        <div className="p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg flex items-start gap-3">
+          <AlertTriangle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+          <div className="flex-1">
+            <p className="font-medium">Error loading skills</p>
+            <p className="text-sm mt-1">{error}</p>
+            <button
+              onClick={() => fetchSkills(true)}
+              className="text-sm underline mt-2 hover:text-red-800"
+            >
+              Try again
+            </button>
+          </div>
         </div>
       )}
       {success && (
