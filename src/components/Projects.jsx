@@ -13,10 +13,10 @@ const Projects = ({ projects }) => {
             Recent Work
           </span>
           <h2 className="text-2.5xl sm:text-4xl font-bold mb-3">
-            Featured <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 bg-clip-text text-transparent">Projects</span>
+            All <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 bg-clip-text text-transparent">Projects</span>
           </h2>
           <p className="text-gray-700 dark:text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
-            A selection of projects I've worked on, showcasing my expertise in building modern web applications
+            A selection of projects I've worked on recently, showcasing my expertise in building modern web applications
           </p>
         </div>
 
