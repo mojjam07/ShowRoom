@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Code, Server, Wrench, Cloud, Star, ChevronDown, ChevronUp } from 'lucide-react';
+import { Code, Server, Wrench, Cloud, Star, ChevronDown, ChevronUp, Database, Settings, Smartphone, HelpCircle, Palette, CheckCircle, Shield, Terminal } from 'lucide-react';
 
 const Skills = ({ skills }) => {
   const [expandedCategory, setExpandedCategory] = useState(new Set());
@@ -10,15 +10,31 @@ const Skills = ({ skills }) => {
     backend: Server,
     tools: Wrench,
     cloud: Cloud,
+    database: Database,
+    devops: Settings,
+    mobile: Smartphone,
+    other: HelpCircle,
+    design: Palette,
+    testing: CheckCircle,
+    security: Shield,
+    programming: Terminal,
     default: Star
   };
 
-  // Category colors
+  // Category colors (3 main colors for consistency)
   const categoryColors = {
     frontend: { from: 'from-blue-500', to: 'to-blue-600', bg: 'blue' },
     backend: { from: 'from-blue-500', to: 'to-blue-600', bg: 'blue' },
+    database: { from: 'from-blue-500', to: 'to-blue-600', bg: 'blue' },
+    mobile: { from: 'from-blue-500', to: 'to-blue-600', bg: 'blue' },
+    programming: { from: 'from-blue-500', to: 'to-blue-600', bg: 'blue' },
     tools: { from: 'from-gray-500', to: 'to-gray-600', bg: 'gray' },
+    devops: { from: 'from-gray-500', to: 'to-gray-600', bg: 'gray' },
+    security: { from: 'from-gray-500', to: 'to-gray-600', bg: 'gray' },
     cloud: { from: 'from-green-500', to: 'to-green-600', bg: 'green' },
+    design: { from: 'from-green-500', to: 'to-green-600', bg: 'green' },
+    testing: { from: 'from-green-500', to: 'to-green-600', bg: 'green' },
+    other: { from: 'from-gray-500', to: 'to-gray-600', bg: 'gray' },
     default: { from: 'from-blue-500', to: 'to-blue-600', bg: 'blue' }
   };
 

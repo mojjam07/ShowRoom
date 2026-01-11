@@ -269,8 +269,14 @@ const SkillsAdmin = () => {
                     <option value="Frontend">Frontend</option>
                     <option value="Backend">Backend</option>
                     <option value="Database">Database</option>
-                    <option value="DevOps">DevOps</option>
                     <option value="Mobile">Mobile</option>
+                    <option value="Programming">Programming</option>
+                    <option value="Tools">Tools</option>
+                    <option value="DevOps">DevOps</option>
+                    <option value="Security">Security</option>
+                    <option value="Cloud">Cloud</option>
+                    <option value="Design">Design</option>
+                    <option value="Testing">Testing</option>
                     <option value="Other">Other</option>
                   </select>
                 </div>
