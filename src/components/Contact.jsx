@@ -10,9 +10,9 @@ const Contact = ({ formData, setFormData, formStatus, handleSubmit }) => {
 
   const socialLinks = [
     { icon: Github, href: 'https://github.com/mojjam07', label: 'GitHub' },
-    { icon: Linkedin, href: 'www.linkedin.com/in/mojeed-jamiu-b279171a2#', label: 'LinkedIn' },
+    { icon: Linkedin, href: 'www.linkedin.com/in/mojeed-jamiu-b279171a2', label: 'LinkedIn' },
     { icon: Twitter, href: 'https://twitter.com/el_munjid07', label: 'Twitter' },
-    { icon: Instagram, href: 'https://instagram.com/yourusername', label: 'Instagram' },
+    { icon: Instagram, href: 'https://instagram.com/el_munjid', label: 'Instagram' },
   ];
 
   return (
@@ -20,11 +20,11 @@ const Contact = ({ formData, setFormData, formStatus, handleSubmit }) => {
       <div className="max-w-7xl mx-auto w-full">
         {/* Section Header */}
         <div className="text-center mb-8 sm:mb-12">
-          <span className="inline-block px-3 py-1.5 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 text-sm font-medium mb-3">
+          <span className="inline-block px-3 py-1.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-sm font-medium mb-3">
             Let's connect
           </span>
           <h2 className="text-2.5xl sm:text-4xl font-bold mb-3">
-            Get In <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 bg-clip-text text-transparent">Touch</span>
+            Get In <span className="bg-gradient-to-r from-blue-600 to-blue-600 bg-clip-text text-transparent">Touch</span>
           </h2>
           <p className="text-gray-700 dark:text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
             Have a project in mind or want to collaborate? I'd love to hear from you.
@@ -43,14 +43,14 @@ const Contact = ({ formData, setFormData, formStatus, handleSubmit }) => {
                   <a
                     key={item.label}
                     href={item.href}
-                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors group"
+                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors group"
                   >
-                    <div className={`w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-md group-hover:scale-110 transition-transform`}>
+                    <div className={`w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-md group-hover:scale-110 transition-transform`}>
                       <item.icon className="w-5 h-5 text-white" />
                     </div>
                     <div>
                       <p className="text-xs text-gray-500 dark:text-gray-400">{item.label}</p>
-                      <p className="font-medium text-gray-800 dark:text-gray-200 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors text-sm">
+                      <p className="font-medium text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors text-sm">
                         {item.value}
                       </p>
                     </div>
@@ -69,9 +69,9 @@ const Contact = ({ formData, setFormData, formStatus, handleSubmit }) => {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={social.label}
-                      className="p-2.5 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-all duration-300 hover:scale-110 group"
+                      className="p-2.5 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110 group"
                     >
-                      <social.icon className="w-4 h-4 text-gray-700 dark:text-gray-400 group-hover:text-purple-500 transition-colors" />
+                      <social.icon className="w-4 h-4 text-gray-700 dark:text-gray-400 group-hover:text-blue-500 transition-colors" />
                     </a>
                   ))}
                 </div>
@@ -110,7 +110,7 @@ const Contact = ({ formData, setFormData, formStatus, handleSubmit }) => {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Jamiu Mojeed"
-                    className="w-full px-3 py-2.5 bg-white dark:bg-slate-900 border border-gray-300 dark:border-gray-600/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all text-gray-800 dark:text-gray-200 placeholder-gray-400 text-sm"
+                    className="w-full px-3 py-2.5 bg-white dark:bg-slate-900 border border-gray-300 dark:border-gray-600/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-gray-800 dark:text-gray-200 placeholder-gray-400 text-sm"
                     required
                   />
                 </div>
@@ -124,7 +124,7 @@ const Contact = ({ formData, setFormData, formStatus, handleSubmit }) => {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="mojjam@example.com"
-                    className="w-full px-3 py-2.5 bg-white dark:bg-slate-900 border border-gray-300 dark:border-gray-600/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all text-gray-800 dark:text-gray-200 placeholder-gray-400 text-sm"
+                    className="w-full px-3 py-2.5 bg-white dark:bg-slate-900 border border-gray-300 dark:border-gray-600/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-gray-800 dark:text-gray-200 placeholder-gray-400 text-sm"
                     required
                   />
                 </div>
@@ -140,7 +140,7 @@ const Contact = ({ formData, setFormData, formStatus, handleSubmit }) => {
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder="Tell me about your project or just say hi..."
                   rows="4"
-                  className="w-full px-3 py-2.5 bg-white dark:bg-slate-900 border border-gray-300 dark:border-gray-600/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all resize-none text-gray-800 dark:text-gray-200 placeholder-gray-400 text-sm"
+                  className="w-full px-3 py-2.5 bg-white dark:bg-slate-900 border border-gray-300 dark:border-gray-600/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none text-gray-800 dark:text-gray-200 placeholder-gray-400 text-sm"
                   required
                 ></textarea>
               </div>
@@ -148,7 +148,7 @@ const Contact = ({ formData, setFormData, formStatus, handleSubmit }) => {
               <button
                 type="submit"
                 disabled={formStatus === 'sending'}
-                className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-medium hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group text-sm"
+                className="w-full py-3 bg-gradient-to-r from-blue-600 to-blue-600 text-white rounded-xl font-medium hover:from-blue-700 hover:to-blue-700 transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group text-sm"
               >
                 {formStatus === 'sending' ? (
                   <>

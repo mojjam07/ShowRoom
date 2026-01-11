@@ -77,10 +77,10 @@ const About = () => {
   }, [totalProjects]);
 
   const stats = [
-    { icon: Code, value: `${animatedStats.years}+`, label: 'Years Experience', color: 'purple' },
-    { icon: Briefcase, value: `${animatedStats.projects}+`, label: 'Projects Completed', color: 'pink' },
-    { icon: Zap, value: `${animatedStats.satisfaction}%`, label: 'Client Satisfaction', color: 'amber' },
-    { icon: Target, value: '∞', label: 'Learning Mindset', color: 'cyan' },
+    { icon: Code, value: `${animatedStats.years}+`, label: 'Years Experience', color: 'blue' },
+    { icon: Briefcase, value: `${animatedStats.projects}+`, label: 'Projects Completed', color: 'blue' },
+    { icon: Zap, value: `${animatedStats.satisfaction}%`, label: 'Client Satisfaction', color: 'green' },
+    { icon: Target, value: '∞', label: 'Learning Mindset', color: 'gray' },
   ];
 
   const highlights = [
@@ -106,11 +106,11 @@ const About = () => {
       <div className="max-w-7xl mx-auto w-full">
         {/* Section Header */}
         <div className="text-center mb-8 sm:mb-12">
-          <span className="inline-block px-3 py-1.5 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 text-sm font-medium mb-3">
+          <span className="inline-block px-3 py-1.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-sm font-medium mb-3">
             Get to know me
           </span>
           <h2 className="text-2.5xl sm:text-4xl font-bold mb-3">
-            About <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-rose-400 bg-clip-text text-transparent">Me</span>
+            About <span className="bg-gradient-to-r from-blue-600 to-blue-600 bg-clip-text text-transparent">Me</span>
           </h2>
         </div>
 
@@ -118,14 +118,14 @@ const About = () => {
           {/* Left Side - Bio */}
           <div className="space-y-4 text-sm sm:text-base text-gray-700 dark:text-gray-300">
             <div className="relative">
-              <div className="absolute -left-3 top-0 w-1 h-full bg-gradient-to-b from-purple-500 to-pink-500 rounded-full" />
+              <div className="absolute -left-3 top-0 w-1 h-full bg-gradient-to-b from-blue-500 to-blue-600 rounded-full" />
               <p className="pl-4">
-                I'm a passionate <span className="font-semibold text-purple-600 dark:text-purple-400">Full Stack Developer</span> with a focus on building scalable, high-performance web applications that solve real-world problems.
+                I'm a passionate <span className="font-semibold text-blue-600 dark:text-blue-400">Full Stack Developer</span> with a focus on building scalable, high-performance web applications that solve real-world problems.
               </p>
             </div>
 
             <p className="pl-0">
-              I specialize in <span className="font-semibold text-purple-600 dark:text-purple-400">React, Node.js, and modern JavaScript frameworks</span> like Next.js and Express. My development philosophy emphasizes clean architecture, reusable components, and responsive design.
+              I specialize in <span className="font-semibold text-blue-600 dark:text-blue-400">React, Node.js, and modern JavaScript frameworks</span> like Next.js and Express. My development philosophy emphasizes clean architecture, reusable components, and responsive design.
             </p>
 
             <p className="pl-0">
@@ -137,9 +137,9 @@ const About = () => {
               {highlights.map((item) => (
                 <div
                   key={item.title}
-                  className="p-3 rounded-xl bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-white/10 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors duration-300"
+                  className="p-3 rounded-xl bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-white/10 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-300"
                 >
-                  <item.icon className="w-5 h-5 text-purple-500 mb-2" />
+                  <item.icon className="w-5 h-5 text-blue-500 mb-2" />
                   <h4 className="font-semibold text-gray-800 dark:text-gray-200 text-sm mb-1">{item.title}</h4>
                   <p className="text-xs text-gray-600 dark:text-gray-400">{item.description}</p>
                 </div>
@@ -150,23 +150,36 @@ const About = () => {
           {/* Right Side - Stats Cards */}
           <div className="space-y-3 sm:space-y-4">
             <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
-              {stats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="group relative p-4 sm:p-5 rounded-xl bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-gray-200/50 dark:border-white/10 hover:border-purple-500/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
-                >
-                  <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-${stat.color}-500/10 to-transparent`} />
-                  <div className="relative z-10">
-                    <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-${stat.color}-500 to-${stat.color}-600 flex items-center justify-center mb-3 shadow-lg`}>
-                      <stat.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+              {stats.map((stat) => {
+                // Helper to get gradient classes based on color
+                const getGradientClasses = (color) => {
+                  switch(color) {
+                    case 'blue': return 'from-blue-500 to-blue-600';
+                    case 'green': return 'from-green-500 to-green-600';
+                    case 'gray': return 'from-gray-500 to-gray-600';
+                    default: return 'from-blue-500 to-blue-600';
+                  }
+                };
+                const gradientClasses = getGradientClasses(stat.color);
+
+                return (
+                  <div
+                    key={stat.label}
+                    className="group relative p-4 sm:p-5 rounded-xl bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-gray-200/50 dark:border-white/10 hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                  >
+                    <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br ${stat.color === 'blue' ? 'from-blue-500/10' : stat.color === 'green' ? 'from-green-500/10' : 'from-gray-500/10'} to-transparent`} />
+                    <div className="relative z-10">
+                      <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br ${gradientClasses} flex items-center justify-center mb-3 shadow-lg`}>
+                        <stat.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                      </div>
+                      <h3 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-600 bg-clip-text text-transparent mb-1">
+                        {stat.value}
+                      </h3>
+                      <p className="text-gray-600 dark:text-gray-400 font-medium text-sm">{stat.label}</p>
                     </div>
-                    <h3 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-1">
-                      {stat.value}
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-400 font-medium text-sm">{stat.label}</p>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* Additional Info Card */}
@@ -176,7 +189,7 @@ const About = () => {
                 {['React', 'Node.js', 'Next.js', 'Express', 'TypeScript', 'PostgreSQL', 'MongoDB', 'Docker'].map((tech) => (
                   <span
                     key={tech}
-                    className="px-2.5 py-1 rounded-full bg-purple-100 dark:bg-slate-800 text-xs text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
+                    className="px-2.5 py-1 rounded-full bg-blue-100 dark:bg-slate-800 text-xs text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
                   >
                     {tech}
                   </span>

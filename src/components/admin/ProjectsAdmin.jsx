@@ -145,14 +145,14 @@ const ProjectsAdmin = () => {
       </div>
       
       {error && (
-        <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg flex items-start gap-3">
+        <div className="mb-4 p-4 bg-gray-100 border border-gray-400 text-gray-700 rounded-lg flex items-start gap-3">
           <AlertTriangle className="w-5 h-5 flex-shrink-0 mt-0.5" />
           <div className="flex-1">
             <p className="font-medium">Error loading projects</p>
             <p className="text-sm mt-1">{error}</p>
             <button
               onClick={() => fetchProjects(true)}
-              className="text-sm underline mt-2 hover:text-red-800"
+              className="text-sm underline mt-2 hover:text-gray-800"
             >
               Try again
             </button>
@@ -282,7 +282,7 @@ const ProjectsAdmin = () => {
                       </button>
                       <button
                         onClick={() => handleDeleteClick(project.id, project.title)}
-                        className="text-red-500 hover:text-red-700 touch-target focus-ring p-2"
+                        className="text-gray-500 hover:text-gray-700 touch-target focus-ring p-2"
                         title="Delete"
                       >
                         <Trash2 className="w-4 h-4 xs:w-5 xs:h-5" />
@@ -300,8 +300,8 @@ const ProjectsAdmin = () => {
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-6">
             <div className="flex items-center justify-center mb-4">
-              <div className="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
-                <Trash2 className="w-6 h-6 text-red-600 dark:text-red-400" />
+              <div className="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-900/30 flex items-center justify-center">
+                <Trash2 className="w-6 h-6 text-gray-600 dark:text-gray-400" />
               </div>
             </div>
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white text-center mb-2">Delete Project</h3>
@@ -311,7 +311,7 @@ const ProjectsAdmin = () => {
             <div className="flex gap-3">
               <button
                 onClick={confirmDelete}
-                className="flex-1 bg-red-600 text-white py-3 rounded-xl font-semibold hover:bg-red-700 transition-all disabled:opacity-50"
+                className="flex-1 bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition-all disabled:opacity-50"
               >
                 Delete
               </button>

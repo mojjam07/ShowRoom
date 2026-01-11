@@ -74,7 +74,7 @@ const Dashboard = () => {
       title: 'Projects',
       value: animatedStats.totalProjects || 0,
       icon: Folder,
-      gradient: 'from-blue-500 to-cyan-500',
+      gradient: 'from-blue-500 to-blue-600',
       bgLight: 'bg-blue-50 dark:bg-blue-900/20',
       trend: '+12%',
       trendUp: true,
@@ -83,7 +83,7 @@ const Dashboard = () => {
       title: 'Skills',
       value: animatedStats.totalSkills || 0,
       icon: Code,
-      gradient: 'from-green-500 to-emerald-500',
+      gradient: 'from-green-500 to-green-600',
       bgLight: 'bg-green-50 dark:bg-green-900/20',
       trend: '+5%',
       trendUp: true,
@@ -92,8 +92,8 @@ const Dashboard = () => {
       title: 'Contacts',
       value: animatedStats.totalContacts || 0,
       icon: Users,
-      gradient: 'from-purple-500 to-violet-500',
-      bgLight: 'bg-purple-50 dark:bg-purple-900/20',
+      gradient: 'from-blue-500 to-blue-600',
+      bgLight: 'bg-blue-50 dark:bg-blue-900/20',
       trend: '+23%',
       trendUp: true,
     },
@@ -101,8 +101,8 @@ const Dashboard = () => {
       title: 'Unread',
       value: animatedStats.unreadContacts || 0,
       icon: Mail,
-      gradient: 'from-orange-500 to-red-500',
-      bgLight: 'bg-orange-50 dark:bg-orange-900/20',
+      gradient: 'from-gray-500 to-gray-600',
+      bgLight: 'bg-gray-50 dark:bg-gray-900/20',
       trend: '-8%',
       trendUp: false,
     },
@@ -114,7 +114,7 @@ const Dashboard = () => {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-500 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
               <Activity className="w-5 h-5 text-white" />
             </div>
             Dashboard
@@ -125,9 +125,9 @@ const Dashboard = () => {
           <button className="px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 rounded-xl border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all shadow-sm">
             Export Report
           </button>
-          <button 
+          <button
             onClick={() => navigate('/admin/projects')}
-            className="px-4 py-2 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-xl hover:shadow-lg hover:shadow-violet-500/25 transition-all cursor-pointer"
+            className="px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-600 text-white rounded-xl hover:shadow-lg hover:shadow-blue-500/25 transition-all cursor-pointer"
           >
             Add New Project
           </button>
@@ -153,9 +153,9 @@ const Dashboard = () => {
                     <Icon className="w-6 h-6 text-white" />
                   </div>
                   <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${
-                    stat.trendUp 
-                      ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' 
-                      : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                    stat.trendUp
+                      ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+                      : 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400'
                   }`}>
                     {stat.trendUp ? <ArrowUp size={12} /> : <ArrowDown size={12} />}
                     {stat.trend}
@@ -189,8 +189,8 @@ const Dashboard = () => {
             {[
               { icon: Folder, label: 'Add Project', color: 'bg-blue-500' },
               { icon: Code, label: 'Add Skill', color: 'bg-green-500' },
-              { icon: Mail, label: 'View Contacts', color: 'bg-purple-500' },
-              { icon: BarChart3, label: 'View Analytics', color: 'bg-orange-500' },
+              { icon: Mail, label: 'View Contacts', color: 'bg-blue-500' },
+              { icon: BarChart3, label: 'View Analytics', color: 'bg-gray-500' },
             ].map((action) => {
               const Icon = action.icon;
               return (

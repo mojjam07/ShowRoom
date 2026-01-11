@@ -149,7 +149,7 @@ const SkillsAdmin = () => {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
               <Code className="w-5 h-5 text-white" />
             </div>
             Manage Skills
@@ -168,7 +168,7 @@ const SkillsAdmin = () => {
           </button>
           <button
             onClick={() => setShowForm(true)}
-            className="px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:shadow-lg hover:shadow-green-500/25 transition-all flex items-center gap-2"
+            className="px-4 py-2 bg-gradient-to-r from-green-600 to-green-600 text-white rounded-xl hover:shadow-lg hover:shadow-green-500/25 transition-all flex items-center gap-2"
           >
             <Plus className="w-4 h-4" />
             Add Skill
@@ -178,14 +178,14 @@ const SkillsAdmin = () => {
 
       {/* Error and Success Messages */}
       {error && (
-        <div className="p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg flex items-start gap-3">
+        <div className="p-4 bg-gray-100 border border-gray-400 text-gray-700 rounded-lg flex items-start gap-3">
           <AlertTriangle className="w-5 h-5 flex-shrink-0 mt-0.5" />
           <div className="flex-1">
             <p className="font-medium">Error loading skills</p>
             <p className="text-sm mt-1">{error}</p>
             <button
               onClick={() => fetchSkills(true)}
-              className="text-sm underline mt-2 hover:text-red-800"
+              className="text-sm underline mt-2 hover:text-gray-800"
             >
               Try again
             </button>
@@ -280,7 +280,7 @@ const SkillsAdmin = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 px-4 rounded-xl font-semibold shadow-lg hover:shadow-green-500/25 focus:outline-none focus:ring-2 focus:ring-green-500/50 transform hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 bg-gradient-to-r from-green-600 to-green-600 text-white py-3 px-4 rounded-xl font-semibold shadow-lg hover:shadow-green-500/25 focus:outline-none focus:ring-2 focus:ring-green-500/50 transform hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <>
@@ -328,7 +328,7 @@ const SkillsAdmin = () => {
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
                     <div className="flex items-start justify-between mb-3">
-                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
                         <Code className="w-5 h-5 text-white" />
                       </div>
                       <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -341,7 +341,7 @@ const SkillsAdmin = () => {
                         </button>
                         <button
                           onClick={() => handleDeleteClick(skill.id, skill.name, skill.category)}
-                          className="p-1.5 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                          className="p-1.5 text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-900/20 rounded-lg transition-colors"
                           title="Delete"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -374,7 +374,7 @@ const SkillsAdmin = () => {
           {(!searchTerm && selectedCategory === 'All') && (
             <button
               onClick={() => setShowForm(true)}
-              className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:shadow-lg hover:shadow-green-500/25 transition-all"
+              className="px-6 py-3 bg-gradient-to-r from-green-600 to-green-600 text-white rounded-xl hover:shadow-lg hover:shadow-green-500/25 transition-all"
             >
               Add Your First Skill
             </button>
@@ -387,8 +387,8 @@ const SkillsAdmin = () => {
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-6">
             <div className="flex items-center justify-center mb-4">
-              <div className="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
-                <Trash2 className="w-6 h-6 text-red-600 dark:text-red-400" />
+              <div className="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-900/30 flex items-center justify-center">
+                <Trash2 className="w-6 h-6 text-gray-600 dark:text-gray-400" />
               </div>
             </div>
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white text-center mb-2">Delete Skill</h3>
@@ -398,7 +398,7 @@ const SkillsAdmin = () => {
             <div className="flex gap-3">
               <button
                 onClick={confirmDelete}
-                className="flex-1 bg-red-600 text-white py-3 rounded-xl font-semibold hover:bg-red-700 transition-all disabled:opacity-50"
+                className="flex-1 bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition-all disabled:opacity-50"
               >
                 Delete
               </button>

@@ -15,11 +15,11 @@ const Skills = ({ skills }) => {
 
   // Category colors
   const categoryColors = {
-    frontend: { from: 'from-purple-500', to: 'to-violet-600', bg: 'purple' },
-    backend: { from: 'from-blue-500', to: 'to-cyan-600', bg: 'blue' },
-    tools: { from: 'from-amber-500', to: 'to-orange-600', bg: 'amber' },
-    cloud: { from: 'from-emerald-500', to: 'to-teal-600', bg: 'emerald' },
-    default: { from: 'from-pink-500', to: 'to-rose-600', bg: 'pink' }
+    frontend: { from: 'from-blue-500', to: 'to-blue-600', bg: 'blue' },
+    backend: { from: 'from-blue-500', to: 'to-blue-600', bg: 'blue' },
+    tools: { from: 'from-gray-500', to: 'to-gray-600', bg: 'gray' },
+    cloud: { from: 'from-green-500', to: 'to-green-600', bg: 'green' },
+    default: { from: 'from-blue-500', to: 'to-blue-600', bg: 'blue' }
   };
 
   // Group skills by category
@@ -48,11 +48,11 @@ const Skills = ({ skills }) => {
       <div className="max-w-7xl mx-auto w-full">
         {/* Section Header */}
         <div className="text-center mb-8 sm:mb-12">
-          <span className="inline-block px-3 py-1.5 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 text-sm font-medium mb-3">
+          <span className="inline-block px-3 py-1.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-sm font-medium mb-3">
             What I work with
           </span>
           <h2 className="text-2.5xl sm:text-4xl font-bold mb-3">
-            My <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 bg-clip-text text-transparent">Skills</span>
+            My <span className="bg-gradient-to-r from-blue-600 to-blue-600 bg-clip-text text-transparent">Skills</span>
           </h2>
         </div>
 
@@ -113,10 +113,10 @@ const Skills = ({ skills }) => {
                       {categorySkills.map((skill) => (
                         <div
                           key={skill.id}
-                          className="skill-item relative p-2.5 rounded-lg bg-white dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600/50 hover:border-purple-400 transition-all duration-300 cursor-default"
+                          className="skill-item relative p-2.5 rounded-lg bg-white dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600/50 hover:border-blue-400 transition-all duration-300 cursor-default"
                         >
                           <div className="flex items-center justify-center text-center">
-                            <span className="font-medium text-xs sm:text-sm text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+                            <span className="font-medium text-xs sm:text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                               {skill.name}
                             </span>
                           </div>

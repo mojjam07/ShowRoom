@@ -117,7 +117,7 @@ const Portfolio = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50 dark:from-slate-900 dark:via-blue-900 dark:to-slate-900 text-gray-900 dark:text-white">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 dark:from-slate-900 dark:via-blue-900 dark:to-slate-900 text-gray-900 dark:text-white">
       <Navigation
         activeSection={activeSection}
         scrollTo={scrollTo}

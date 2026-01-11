@@ -61,7 +61,7 @@ const Navigation = ({ activeSection, scrollTo, isDark, toggleTheme }) => {
                 onClick={() => scrollTo('home')}
                 className="group relative inline-flex items-center justify-center"
               >
-                <span className="relative text-lg sm:text-xl font-bold bg-gradient-to-r from-purple-500 via-pink-500 to-rose-500 bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-300">
+                <span className="relative text-lg sm:text-xl font-bold bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-300">
                   Jamiu M. A.
                 </span>
               </button>
@@ -76,13 +76,13 @@ const Navigation = ({ activeSection, scrollTo, isDark, toggleTheme }) => {
                     onClick={() => scrollTo(item)}
                     className={`relative px-3 py-2 text-sm font-medium capitalize tracking-wide transition-all duration-300 ${
                       activeSection === item
-                        ? 'text-purple-600 dark:text-purple-400'
-                        : 'text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400'
+                        ? 'text-blue-600 dark:text-blue-400'
+                        : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
                     }`}
                   >
                     <span className="relative z-10">{item}</span>
                     {activeSection === item && (
-                      <span className="absolute inset-0 rounded-lg bg-purple-100/50 dark:bg-purple-900/30 -z-0" />
+                      <span className="absolute inset-0 rounded-lg bg-blue-100/50 dark:bg-blue-900/30 -z-0" />
                     )}
                   </button>
                 ))}
@@ -95,11 +95,11 @@ const Navigation = ({ activeSection, scrollTo, isDark, toggleTheme }) => {
                   className="relative group p-2 rounded-full transition-all duration-300 hover:scale-110 hover:rotate-180 focus:outline-none"
                   title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
                 >
-                  <span className="relative z-10">
+                <span className="relative z-10">
                     {isDark ? (
                       <Sun className="w-5 h-5 text-amber-400" />
                     ) : (
-                      <Moon className="w-5 h-5 text-indigo-500" />
+                      <Moon className="w-5 h-5 text-blue-500" />
                     )}
                   </span>
                 </button>
@@ -117,7 +117,7 @@ const Navigation = ({ activeSection, scrollTo, isDark, toggleTheme }) => {
                 {isDark ? (
                   <Sun className="w-5 h-5 text-amber-400" />
                 ) : (
-                  <Moon className="w-5 h-5 text-indigo-500" />
+                  <Moon className="w-5 h-5 text-blue-500" />
                 )}
               </button>
 
@@ -163,7 +163,7 @@ const Navigation = ({ activeSection, scrollTo, isDark, toggleTheme }) => {
                   }}
                   className={`w-full text-left px-4 py-3 text-base font-medium capitalize transition-all duration-300 ${
                     activeSection === item
-                      ? 'text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20'
+                      ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
                       : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
                   }`}
                 >

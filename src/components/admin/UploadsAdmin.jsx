@@ -126,7 +126,7 @@ const UploadsAdmin = () => {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
               <Upload className="w-5 h-5 text-white" />
             </div>
             File Uploads
@@ -137,7 +137,7 @@ const UploadsAdmin = () => {
 
       {/* Error Message */}
       {error && (
-        <div className="p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+        <div className="p-4 bg-gray-100 border border-gray-400 text-gray-700 rounded-lg">
           {error}
         </div>
       )}
@@ -233,7 +233,7 @@ const UploadsAdmin = () => {
               </div>
               <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full transition-all duration-300"
+                  className="h-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full transition-all duration-300"
                   style={{ width: `${uploadProgress}%` }}
                 />
               </div>
@@ -244,17 +244,17 @@ const UploadsAdmin = () => {
             <div className={`mt-4 p-4 rounded-xl flex items-center gap-3 ${
               message.includes('successfully')
                 ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800'
-                : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800'
+                : 'bg-gray-50 dark:bg-gray-900/20 border border-gray-200 dark:border-gray-800'
             }`}>
               {message.includes('successfully') ? (
                 <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0" />
               ) : (
-                <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0" />
+                <AlertCircle className="w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0" />
               )}
               <p className={`text-sm ${
                 message.includes('successfully')
                   ? 'text-green-800 dark:text-green-300'
-                  : 'text-red-800 dark:text-red-300'
+                  : 'text-gray-800 dark:text-gray-300'
               }`}>
                 {message}
               </p>
@@ -264,7 +264,7 @@ const UploadsAdmin = () => {
           <button
             type="submit"
             disabled={!file || uploading}
-            className="mt-6 w-full bg-gradient-to-r from-cyan-600 to-blue-600 text-white py-3 px-4 rounded-xl font-semibold shadow-lg hover:shadow-cyan-500/25 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
+            className="mt-6 w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-4 rounded-xl font-semibold shadow-lg hover:shadow-blue-500/25 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
           >
             {uploading ? (
               <>
