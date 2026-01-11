@@ -1,6 +1,6 @@
 import React from 'react';
 import { Github, Linkedin, Mail, Instagram, Facebook, MessageCircle, Twitter, ArrowRight } from 'lucide-react';
-import profileImg from '../assets/profile.png';
+import profileImg from '../assets/profile.jpeg';
 
 const Hero = ({ scrollTo }) => {
   return (
