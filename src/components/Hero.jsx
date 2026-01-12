@@ -48,7 +48,7 @@ const Hero = ({ scrollTo }) => {
               <a href="https://github.com/mojjam07" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="group p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110">
                 <Github className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 dark:text-gray-400 group-hover:text-blue-500 transition-colors" />
               </a>
-              <a href="www.linkedin.com/in/mojeed-jamiu-b279171a2#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="group p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110">
+              <a href="www.linkedin.com/in/mojeed-jamiu-b279171a2" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="group p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110">
                 <Linkedin className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 dark:text-gray-400 group-hover:text-blue-500 transition-colors" />
               </a>
               <a href="mailto:mojjam07@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email" className="group p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110">
