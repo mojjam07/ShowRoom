@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Code, Server, Wrench, Cloud, Star, ChevronDown, ChevronUp, Database, Settings, Smartphone, HelpCircle, Palette, CheckCircle, Shield, Terminal } from 'lucide-react';
 
 const Skills = ({ skills }) => {
-  const [expandedCategory, setExpandedCategory] = useState(new Set());
 
   // Icon mapping for categories
   const categoryIcons = {
@@ -47,17 +46,7 @@ const Skills = ({ skills }) => {
     return acc;
   }, {});
 
-  const toggleCategory = (category) => {
-    setExpandedCategory(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(category)) {
-        newSet.delete(category);
-      } else {
-        newSet.add(category);
-      }
-      return newSet;
-    });
-  };
+
 
   return (
     <section id="skills" className="flex items-center px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
@@ -79,7 +68,6 @@ const Skills = ({ skills }) => {
             {Object.entries(groupedSkills).map(([category, categorySkills]) => {
               const IconComponent = categoryIcons[category.toLowerCase()] || categoryIcons.default;
               const colors = categoryColors[category.toLowerCase()] || categoryColors.default;
-              const isExpanded = expandedCategory.has(category);
 
               return (
                 <div
@@ -90,10 +78,7 @@ const Skills = ({ skills }) => {
                   <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${colors.from} ${colors.to}`} />
 
                   {/* Category Header */}
-                  <button
-                    onClick={() => toggleCategory(category)}
-                    className="w-full p-4 sm:p-5 flex items-center justify-between text-left"
-                  >
+                  <div className="w-full p-4 sm:p-5 flex items-center justify-between text-left">
                     <div className="flex items-center gap-3">
                       <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-gradient-to-br ${colors.from} ${colors.to} flex items-center justify-center shadow-md group-hover:scale-110 transition-transform`}>
                         <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
@@ -107,24 +92,10 @@ const Skills = ({ skills }) => {
                         </p>
                       </div>
                     </div>
-                    <div className={`p-1.5 rounded-full bg-gray-100 dark:bg-gray-700 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}>
-                      {isExpanded ? (
-                        <ChevronUp className="w-4 h-4 text-gray-600 dark:text-gray-400" />
-                      ) : (
-                        <ChevronDown className="w-4 h-4 text-gray-600 dark:text-gray-400" />
-                      )}
-                    </div>
-                  </button>
+                  </div>
 
                   {/* Skills Grid */}
-                  <div 
-                    className={`px-4 sm:px-5 pb-4 sm:pb-5 transition-all duration-300 ease-in-out ${
-                      isExpanded 
-                        ? 'max-h-96 opacity-100' 
-                        : 'max-h-0 opacity-0 overflow-hidden'
-                    }`}
-                    style={isExpanded ? { maxHeight: '500px' } : {}}
-                  >
+                  <div className="px-4 sm:px-5 pb-4 sm:pb-5">
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-4 sm:pt-5">
                       {categorySkills.map((skill) => (
                         <div
