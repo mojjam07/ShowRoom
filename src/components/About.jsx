@@ -137,7 +137,7 @@ const About = () => {
               {highlights.map((item) => (
                 <div
                   key={item.title}
-                  className="p-3 rounded-xl bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-white/10 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-300"
+                  className="p-3 rounded-xl bg-white dark:bg-slate-800/50 border border-gray-200 dark:border-white/10 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-300"
                 >
                   <item.icon className="w-5 h-5 text-blue-500 mb-2" />
                   <h4 className="font-semibold text-gray-800 dark:text-gray-200 text-sm mb-1">{item.title}</h4>
@@ -189,7 +189,7 @@ const About = () => {
                 {['React', 'Node.js', 'Next.js', 'Express', 'TypeScript', 'PostgreSQL', 'MongoDB', 'Docker'].map((tech) => (
                   <span
                     key={tech}
-                    className="px-2.5 py-1 rounded-full bg-blue-100 dark:bg-slate-800 text-xs text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
+                    className="px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-xs text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-blue-800/50"
                   >
                     {tech}
                   </span>

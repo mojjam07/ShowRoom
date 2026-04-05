@@ -14,6 +14,8 @@ const Reviews = () => {
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(3);
+  const [expandedTexts, setExpandedTexts] = useState({});
 
   useEffect(() => {
     fetchReviews();
@@ -99,7 +101,7 @@ const Reviews = () => {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              {reviews.map((review) => (
+              {reviews.slice(0, visibleCount).map((review) => (
                 <article key={review.id} className="group bg-white/60 dark:bg-gray-900/60 backdrop-blur-xl rounded-3xl p-6 sm:p-8 border border-white/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 hover:border-blue-200 dark:hover:border-blue-800">
                   <div className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4 mb-4 sm:mb-6">
                     <div className="w-12 sm:w-14 h-12 sm:h-14 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
@@ -119,7 +121,26 @@ const Reviews = () => {
                   <div className="flex w-full sm:w-auto gap-2 sm:gap-1 justify-center sm:justify-start mb-4 sm:mb-6">
                     {renderStars(review.rating)}
                   </div>
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-base sm:text-lg mb-4 sm:mb-6">{review.message}</p>
+                  <div className="mb-4 sm:mb-6">
+                    {(() => {
+                      const isLong = review.message.length > 50;
+                      const isExpanded = expandedTexts[review.id];
+                      const displayText = isExpanded ? review.message : review.message.slice(0, 150);
+                      return (
+                        <p className={`text-gray-700 dark:text-gray-300 leading-relaxed text-base sm:text-lg ${isLong && !isExpanded ? 'mb-2' : 'mb-4 sm:mb-6'}`}>
+                          {displayText}
+                          {isLong && (
+                            <button
+                              onClick={() => setExpandedTexts(prev => ({ ...prev, [review.id]: !prev[review.id] }))}
+                              className="ml-1 text-blue-600 hover:text-blue-800 font-semibold text-sm hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
+                            >
+                              {isExpanded ? 'show less' : '... show more'}
+                            </button>
+                          )}
+                        </p>
+                      );
+                    })()}
+                  </div>
                   <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                     <div className="w-5 sm:w-6 h-5 sm:h-6 bg-gradient-to-r from-gray-200 dark:from-gray-700 rounded-full flex items-center justify-center opacity-75">
                       ✓
@@ -128,6 +149,20 @@ const Reviews = () => {
                   </div>
                 </article>
               ))}
+
+              {reviews.length > visibleCount && (
+                <div className="col-span-full flex justify-center mt-8">
+                  <button
+                    onClick={() => setVisibleCount(Infinity)}
+                    className="group relative overflow-hidden bg-gradient-to-r from-blue-600 via-blue-700 to-purple-700 hover:from-blue-700 hover:via-blue-800 hover:to-purple-800 text-white font-bold py-3 px-8 rounded-3xl shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 text-base min-h-[44px] focus:ring-4 focus:ring-blue-500/50"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                    <span className="relative z-10">
+                      Show more ({reviews.length - visibleCount} reviews)
+                    </span>
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </div>
