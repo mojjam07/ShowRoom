@@ -22,6 +22,7 @@ import UploadsAdmin from './components/admin/UploadsAdmin';
 
 
 const Portfolio = () => {
+  const { user, logout } = useAuth();
   const [activeSection, setActiveSection] = useState('home');
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [formStatus, setFormStatus] = useState('');
@@ -123,6 +124,8 @@ const Portfolio = () => {
         scrollTo={scrollTo}
         isDark={isDark}
         toggleTheme={toggleTheme}
+        user={user}
+        onLogout={logout}
       />
       <main>
         <Hero scrollTo={scrollTo} />

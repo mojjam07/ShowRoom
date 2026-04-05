@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon, LogOut } from 'lucide-react';
 
-const Navigation = ({ activeSection, scrollTo, isDark, toggleTheme }) => {
+const Navigation = ({ activeSection, scrollTo, isDark, toggleTheme, user, onLogout }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -31,6 +31,9 @@ const Navigation = ({ activeSection, scrollTo, isDark, toggleTheme }) => {
   }, [isMenuOpen]);
 
   const navLinks = ['home', 'about', 'skills', 'projects', 'contact'];
+
+  // Add admin link if user is authenticated
+  const allLinks = user ? [...navLinks, 'admin'] : navLinks;
 
   if (!mounted) {
     return null;
@@ -70,10 +73,10 @@ const Navigation = ({ activeSection, scrollTo, isDark, toggleTheme }) => {
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center">
               <div className="flex items-center space-x-1">
-                {navLinks.map((item) => (
+                {allLinks.map((item) => (
                   <button
                     key={item}
-                    onClick={() => scrollTo(item)}
+                    onClick={() => item === 'admin' ? window.location.href = '/admin' : scrollTo(item)}
                     className={`relative px-3 py-2 text-sm font-medium capitalize tracking-wide transition-all duration-300 ${
                       activeSection === item
                         ? 'text-blue-600 dark:text-blue-400'
@@ -141,9 +144,9 @@ const Navigation = ({ activeSection, scrollTo, isDark, toggleTheme }) => {
         </nav>
       </header>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Overlay - Outside header for proper z-index stacking */}
       {isMenuOpen && (
-        <div className="fixed inset-0 z-40 md:hidden" ref={menuRef}>
+        <div className="fixed inset-0 z-[60] md:hidden">
           <div
             className="absolute inset-0 bg-black/20 dark:bg-black/50 backdrop-blur-sm"
             onClick={(e) => {
@@ -151,14 +154,21 @@ const Navigation = ({ activeSection, scrollTo, isDark, toggleTheme }) => {
               setIsMenuOpen(false);
             }}
           />
-          <div className="absolute top-full left-4 right-4 mt-2 p-2 rounded-2xl shadow-xl bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-700">
+          <div 
+            className="absolute top-full left-4 right-4 mt-2 p-2 rounded-2xl shadow-xl bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-700"
+            ref={menuRef}
+          >
             <div className="py-2">
-              {navLinks.map((item) => (
+              {allLinks.map((item) => (
                 <button
                   key={item}
                   onClick={(e) => {
                     e.stopPropagation();
-                    scrollTo(item);
+                    if (item === 'admin') {
+                      window.location.href = '/admin';
+                    } else {
+                      scrollTo(item);
+                    }
                     setIsMenuOpen(false);
                   }}
                   className={`w-full text-left px-4 py-3 text-base font-medium capitalize transition-all duration-300 ${
@@ -170,6 +180,21 @@ const Navigation = ({ activeSection, scrollTo, isDark, toggleTheme }) => {
                   {item}
                 </button>
               ))}
+              
+              {/* Logout button for authenticated users */}
+              {user && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (onLogout) onLogout();
+                    setIsMenuOpen(false);
+                  }}
+                  className="w-full text-left px-4 py-3 text-base font-medium capitalize transition-all duration-300 flex items-center text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
+                >
+                  <LogOut className="w-4 h-4 mr-2" />
+                  logout
+                </button>
+              )}
             </div>
           </div>
         </div>

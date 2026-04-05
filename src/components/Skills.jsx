@@ -38,13 +38,15 @@ const Skills = ({ skills }) => {
   };
 
   // Group skills by category
-  const groupedSkills = skills.reduce((acc, skill) => {
-    if (!acc[skill.category]) {
-      acc[skill.category] = [];
-    }
-    acc[skill.category].push(skill);
-    return acc;
-  }, {});
+  const groupedSkills = Array.isArray(skills) 
+    ? skills.reduce((acc, skill) => {
+        if (!acc[skill.category]) {
+          acc[skill.category] = [];
+        }
+        acc[skill.category].push(skill);
+        return acc;
+      }, {})
+    : {};
 
 
 
