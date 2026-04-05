@@ -22,7 +22,9 @@ const AdminLayout = () => {
     { path: '/admin/projects', icon: Folder, label: 'Projects' },
     { path: '/admin/skills', icon: Code, label: 'Skills' },
     { path: '/admin/contacts', icon: Mail, label: 'Contacts' },
+
     { path: '/admin/uploads', icon: Upload, label: 'Uploads' },
+    { path: '/admin/reviews', icon: Mail, label: 'Reviews' },
   ];
 
   return (

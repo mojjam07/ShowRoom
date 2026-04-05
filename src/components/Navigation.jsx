@@ -30,7 +30,7 @@ const Navigation = ({ activeSection, scrollTo, isDark, toggleTheme, user, onLogo
     };
   }, [isMenuOpen]);
 
-  const navLinks = ['home', 'about', 'skills', 'projects', 'contact'];
+const navLinks = ['home', 'about', 'skills', 'projects', 'reviews', 'contact'];
 
   // Add admin link if user is authenticated
   const allLinks = user ? [...navLinks, 'admin'] : navLinks;

@@ -17,6 +17,8 @@ import Dashboard from './components/admin/Dashboard';
 import ProjectsAdmin from './components/admin/ProjectsAdmin';
 import SkillsAdmin from './components/admin/SkillsAdmin';
 import ContactsAdmin from './components/admin/ContactsAdmin';
+import Reviews from './components/Reviews';
+import ReviewsAdmin from './components/admin/ReviewsAdmin';
 import UploadsAdmin from './components/admin/UploadsAdmin';
 
 
@@ -27,7 +29,8 @@ const Portfolio = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [formStatus, setFormStatus] = useState('');
   const [projects, setProjects] = useState([]);
-  const [skills, setSkills] = useState([]);
+const [skills, setSkills] = useState([]);
+  const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isDark, setIsDark] = useState(() => {
     return localStorage.getItem('theme') === 'dark';
@@ -35,17 +38,20 @@ const Portfolio = () => {
 
   const fetchData = useCallback(async () => {
     try {
-      const [projectsRes, skillsRes] = await Promise.all([
+const [projectsRes, skillsRes, reviewsRes] = await Promise.all([
         fetch(`${API_URL}/projects`),
-        fetch(`${API_URL}/skills`)
+        fetch(`${API_URL}/skills`),
+        fetch(`${API_URL}/reviews`)
       ]);
 
       const projectsData = await projectsRes.json();
       const skillsData = await skillsRes.json();
+      const reviewsData = await reviewsRes.json();
 
       // Update state with fetched data (could be empty arrays)
       setProjects(projectsData || []);
       setSkills(skillsData || []);
+      setReviews(reviewsData || []);
     } catch (error) {
       console.error('Error fetching data:', error);
       // Set empty arrays on error
@@ -59,7 +65,7 @@ const Portfolio = () => {
   useEffect(() => {
     fetchData();
     const handleScroll = () => {
-      const sections = ['home', 'about', 'skills', 'projects', 'contact'];
+const sections = ['home', 'about', 'skills', 'projects', 'reviews', 'contact'];
       const current = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
@@ -131,7 +137,8 @@ const Portfolio = () => {
         <Hero scrollTo={scrollTo} />
         <About />
         <Skills skills={skills} />
-        <Projects projects={projects} />
+<Projects projects={projects} />
+        <Reviews reviews={reviews} />
         <Contact
           formData={formData}
           setFormData={setFormData}
@@ -166,8 +173,11 @@ const AppContent = () => (
         <Route path="projects" element={<ProjectsAdmin />} />
         <Route path="skills" element={<SkillsAdmin />} />
         <Route path="contacts" element={<ContactsAdmin />} />
+
         <Route path="uploads" element={<UploadsAdmin />} />
+        <Route path="reviews" element={<ReviewsAdmin />} />
       </Route>
+
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   </Router>
