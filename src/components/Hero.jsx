@@ -11,7 +11,7 @@ const Hero = ({ scrollTo }) => {
           <div className="order-2 lg:order-1 text-center lg:text-left">
             <div className="mb-4 sm:mb-6">
               <span className="inline-block px-3 py-1.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-lg sm:text-base font-medium mb-2 sm:mb-3">
-                👋 Hello, I'm
+                👋 Hello, I'm Mojjam 
               </span>
               <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold mb-3 leading-tight text-center sm:text-left">
                 <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
