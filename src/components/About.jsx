@@ -9,6 +9,7 @@ const About = () => {
     satisfaction: 100
   });
   const [totalProjects, setTotalProjects] = useState(0);
+  // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(true);
 
   // Calculate years of experience from October 2022

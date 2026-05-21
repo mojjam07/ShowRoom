@@ -110,7 +110,8 @@ const sections = ['home', 'about', 'skills', 'projects', 'reviews', 'contact'];
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 text-gray-900">
+    // <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 text-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 dark:from-slate-900 dark:via-blue-900 dark:to-slate-900 text-gray-900 dark:text-white">
       <Navigation
         activeSection={activeSection}
         scrollTo={scrollTo}
@@ -122,7 +123,7 @@ const sections = ['home', 'about', 'skills', 'projects', 'reviews', 'contact'];
         <Hero scrollTo={scrollTo} />
         <About />
         <Skills skills={skills} />
-<Projects projects={projects} />
+        <Projects projects={projects} />
         <Reviews reviews={reviews} />
         <Contact
           formData={formData}

@@ -21,7 +21,7 @@ const Hero = ({ scrollTo }) => {
                   <span className="text-gray-800">Adekunle</span>
                 </div>
               </h1>
-              <p className="text-base sm:text-lg lg:text-xl text-gray-700 mb-4 max-w-xl mx-auto lg:mx-0">
+              <p className="text-base sm:text-lg lg:text-xl text-gray-400 mb-4 max-w-xl mx-auto lg:mx-0">
                 Full Stack Developer crafting beautiful digital experiences with modern technologies
               </p>
             </div>

@@ -80,20 +80,17 @@ const Navigation = ({ activeSection, scrollTo, user, onLogout }) => {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out ${
-          isScrolled ? 'py-1 sm:py-2' : 'py-2 sm:py-3'
+          isScrolled ? 'py-1 sm:py-1.5' : 'py-2 sm:py-2.5'
         }`}
       >
         <nav
           role="navigation"
           aria-label="Main navigation"
-          className={`mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300 ${
-            isScrolled
-              ? 'max-w-5xl rounded-xl sm:rounded-2xl shadow-lg'
-              : 'max-w-6xl sm:rounded-full'
-          } bg-white/80 backdrop-blur-xl border border-gray-200/50 shadow-lg`}
+          className={`mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300 bg-white/75 backdrop-blur-xl border border-gray-200/50 shadow-lg rounded-full`}
         >
 
-          <div className="flex items-center justify-between h-12 sm:h-14">
+          <div className="flex items-center justify-between h-11 sm:h-13">
+
             {/* Logo */}
             <div className="flex-shrink-0">
               <button
@@ -113,18 +110,21 @@ const Navigation = ({ activeSection, scrollTo, user, onLogout }) => {
                 <button
                   key={item}
                   onClick={() => handleNavClick(item)}
-                  className={`relative px-3 py-2 text-sm font-medium capitalize tracking-wide transition-all duration-300 hover:scale-105 ${
+                  className={`relative px-3 py-2 text-sm font-semibold capitalize tracking-wide transition-all duration-300 hover:scale-105 ${
                     activeSection === item
-                      ? 'text-blue-600 shadow-md'
-                      : 'text-gray-600 hover:text-blue-600'
+                      ? 'text-blue-700'
+                      : 'text-gray-600 hover:text-blue-700'
                   }`}
                   aria-current={activeSection === item ? 'page' : undefined}
                 >
                   <span className="relative z-10">{item.charAt(0).toUpperCase() + item.slice(1)}</span>
-                  {activeSection === item && (
-                    <span className="absolute inset-0 rounded-lg bg-blue-100/50 blur-sm scale-110 -z-10" />
+                  {activeSection === item ? (
+                    <span className="absolute inset-0 rounded-full bg-blue-50/70 border border-blue-100/70 shadow-sm -z-10" />
+                  ) : (
+                    <span className="absolute inset-0 rounded-full bg-transparent border border-transparent -z-10" />
                   )}
                 </button>
+
               ))}
 
 
@@ -137,17 +137,19 @@ const Navigation = ({ activeSection, scrollTo, user, onLogout }) => {
               {/* Mobile Menu Toggle */}
               <button
                 onClick={toggleMenu}
-                className="p-3 rounded-xl bg-white/50 backdrop-blur-sm hover:bg-white transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ring-inset shadow-sm"
+                className="touch-target group relative p-2.5 sm:p-3 rounded-full bg-white/70 backdrop-blur-xl border border-gray-200/60 hover:bg-white transition-all duration-300 shadow-sm overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ring-inset"
                 aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
                 aria-expanded={isMenuOpen}
                 aria-controls="mobile-menu"
               >
-
-                {isMenuOpen ? (
-                  <X className="w-6 h-6" />
-                ) : (
-                  <Menu className="w-6 h-6" />
-                )}
+                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-blue-500/20 via-blue-500/10 to-transparent transition-transform duration-500 group-hover:translate-x-full" aria-hidden="true" />
+                <span className="relative z-10 inline-flex items-center justify-center w-10 h-10">
+                  {isMenuOpen ? (
+                    <X className="w-5 h-5 sm:w-6 sm:h-6 text-blue-700 group-hover:scale-105 transition-transform duration-300" />
+                  ) : (
+                    <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-blue-700 group-hover:scale-105 transition-transform duration-300" />
+                  )}
+                </span>
               </button>
             </div>
           </div>
@@ -157,12 +159,13 @@ const Navigation = ({ activeSection, scrollTo, user, onLogout }) => {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div 
-          id="mobile-menu"
+        id="mobile-menu"
           className="fixed inset-0 z-[60] md:hidden"
-          role="menu"
+          role="dialog"
           aria-modal="true"
           aria-hidden={!isMenuOpen}
         >
+
           {/* Backdrop */}
           <div 
             className="absolute inset-0 bg-black/30 backdrop-blur-sm" 
@@ -173,9 +176,10 @@ const Navigation = ({ activeSection, scrollTo, user, onLogout }) => {
           {/* Menu Panel */}
           <div 
             ref={menuRef}
-            className="fixed top-20 left-4 right-4 mx-2 pt-6 pb-4 z-10 rounded-2xl shadow-2xl bg-white/95 border border-gray-200/50 backdrop-blur-xl max-h-[calc(100vh-5rem)] overflow-y-auto"
+            className="fixed top-16 left-4 right-4 mx-2 pt-6 pb-4 z-10 rounded-2xl shadow-2xl bg-white/95 border border-gray-200/50 backdrop-blur-xl max-h-[calc(100vh-4rem)] overflow-y-auto"
 
           >
+
             <nav className="px-1">
               {allLinks.map((item) => (
                 <button
