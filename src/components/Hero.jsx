@@ -10,7 +10,7 @@ const Hero = ({ scrollTo }) => {
           {/* Left Side - Text Content */}
           <div className="order-2 lg:order-1 text-center lg:text-left">
             <div className="mb-4 sm:mb-6">
-              <span className="inline-block px-3 py-1.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-lg sm:text-base font-medium mb-2 sm:mb-3">
+                <span className="inline-block px-3 py-1.5 rounded-full bg-blue-100 text-blue-600 text-lg sm:text-base font-medium mb-2 sm:mb-3">
                 👋 Hello, I'm Mojjam 
               </span>
               <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold mb-3 leading-tight text-center sm:text-left">
@@ -18,10 +18,10 @@ const Hero = ({ scrollTo }) => {
                   <span className="bg-gradient-to-r from-blue-600 to-blue-600 bg-clip-text text-transparent">
                     Jamiu Mojeed
                   </span>
-                  <span className="text-gray-800 dark:text-gray-300">Adekunle</span>
+                  <span className="text-gray-800">Adekunle</span>
                 </div>
               </h1>
-              <p className="text-base sm:text-lg lg:text-xl text-gray-700 dark:text-gray-400 mb-4 max-w-xl mx-auto lg:mx-0">
+              <p className="text-base sm:text-lg lg:text-xl text-gray-700 mb-4 max-w-xl mx-auto lg:mx-0">
                 Full Stack Developer crafting beautiful digital experiences with modern technologies
               </p>
             </div>
@@ -35,9 +35,9 @@ const Hero = ({ scrollTo }) => {
                 View My Work
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
-              <button
+                <button
                 onClick={() => scrollTo('contact')}
-                className="inline-flex items-center px-5 sm:px-6 py-2.5 sm:py-3 border-2 border-blue-500 rounded-full hover:bg-blue-500/10 transition-all text-blue-600 dark:text-blue-400 font-medium text-sm sm:text-base"
+                className="inline-flex items-center px-5 sm:px-6 py-2.5 sm:py-3 border-2 border-blue-500 rounded-full hover:bg-blue-500/10 transition-all text-blue-600 font-medium text-sm sm:text-base"
               >
                 Get In Touch
               </button>

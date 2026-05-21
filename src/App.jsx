@@ -32,9 +32,7 @@ const Portfolio = () => {
 const [skills, setSkills] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isDark, setIsDark] = useState(() => {
-    return localStorage.getItem('theme') === 'dark';
-  });
+
 
   const fetchData = useCallback(async () => {
     try {
@@ -80,19 +78,7 @@ const sections = ['home', 'about', 'skills', 'projects', 'reviews', 'contact'];
     return () => window.removeEventListener('scroll', handleScroll);
   }, [fetchData]);
 
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  }, [isDark]);
 
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -124,15 +110,14 @@ const sections = ['home', 'about', 'skills', 'projects', 'reviews', 'contact'];
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 dark:from-slate-900 dark:via-blue-900 dark:to-slate-900 text-gray-900 dark:text-white">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 text-gray-900">
       <Navigation
         activeSection={activeSection}
         scrollTo={scrollTo}
-        isDark={isDark}
-        toggleTheme={toggleTheme}
         user={user}
         onLogout={logout}
       />
+
       <main>
         <Hero scrollTo={scrollTo} />
         <About />

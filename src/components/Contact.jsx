@@ -109,7 +109,7 @@ const Contact = ({ formData, setFormData, formStatus, handleSubmit }) => {
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="Jamiu Mojeed"
+                    placeholder="FistName LastName"
                     className="w-full px-3 py-2.5 bg-white dark:bg-slate-900 border border-gray-300 dark:border-gray-600/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-gray-800 dark:text-gray-200 placeholder-gray-400 text-sm"
                     required
                   />
@@ -123,7 +123,7 @@ const Contact = ({ formData, setFormData, formStatus, handleSubmit }) => {
                     type="email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="mojjam@example.com"
+                    placeholder="yourmail@example.com"
                     className="w-full px-3 py-2.5 bg-white dark:bg-slate-900 border border-gray-300 dark:border-gray-600/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-gray-800 dark:text-gray-200 placeholder-gray-400 text-sm"
                     required
                   />

@@ -8,12 +8,13 @@ const Reviews = () => {
     name: '',
     email: '',
     role: 'student',
-    rating: 5,
+    rating: 1,
     message: ''
   });
   const [status, setStatus] = useState('');
-  const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   const [visibleCount, setVisibleCount] = useState(3);
   const [expandedTexts, setExpandedTexts] = useState({});
 
@@ -26,12 +27,16 @@ const Reviews = () => {
       const response = await fetch(`${API_URL}/reviews`);
       const data = await response.json();
       setReviews(Array.isArray(data) ? data : []);
-    } catch (error) {
-      console.error('Error fetching reviews:', error);
+    } catch (err) {
+      console.error('Error fetching reviews:', err);
       setReviews([]);
+
+
+
     } finally {
       setLoading(false);
     }
+
   };
 
   const handleSubmit = async (e) => {
@@ -62,6 +67,7 @@ const Reviews = () => {
 
   const renderStars = (rating) => {
     return Array.from({ length: 5 }, (_, i) => (
+
       <Star
         key={i}
         className={`w-5 h-5 transition-colors ${i < rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
@@ -220,7 +226,7 @@ const Reviews = () => {
             <div>
               <label className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 sm:mb-2">Rating *</label>
               <div className="flex flex-wrap gap-1 p-1.5 sm:p-2 sm:p-3 bg-gray-100 dark:bg-gray-800 rounded-xl">
-                {[5,4,3,2,1].map((star) => (
+                {[1,2,3,4,5].map((star) => (
                   <button
                     key={star}
                     type="button"
@@ -261,7 +267,7 @@ const Reviews = () => {
                 <>
                   <Send className="w-5 sm:w-6 h-5 sm:h-6 relative z-10 inline-block mr-2 sm:mr-3 group-hover:translate-x-1 transition-transform duration-300" />
                   Submit Review
-                  <span className="relative z-10 ml-1 sm:ml-2 opacity-75 text-xs sm:text-sm">Pending admin approval</span>
+                  {/* <span className="relative z-10 ml-1 sm:ml-2 opacity-75 text-xs sm:text-sm">For admin approval</span> */}
                 </>
               )}
             </button>
