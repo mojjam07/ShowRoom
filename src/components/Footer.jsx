@@ -18,11 +18,11 @@ const Footer = () => {
                 <Code className="w-5 h-5 text-white" />
               </div>
               <span className="text-lg font-bold bg-gradient-to-r from-blue-600 to-blue-600 bg-clip-text text-transparent">
-                Mojjam Tech
+                Mojjam Technologies
               </span>
             </div>
             <p className="text-gray-700 dark:text-gray-400 text-sm mb-4">
-              Crafting beautiful digital experiences<br />
+              Fullstack developer: Crafting beautiful user interfaces and digital experiences<br />
               with modern technologies.
             </p>
           </div>
@@ -51,7 +51,7 @@ const Footer = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              &copy; {currentYear} Mojjam Tech. All rights reserved.
+              &copy; Copyright {currentYear} Mojjam Technologies. All rights reserved.
             </p>
             
             <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">

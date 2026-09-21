@@ -1,42 +1,58 @@
-import React from 'react';
-import { Github, Linkedin, Mail, Instagram, Facebook, MessageCircle, Twitter, ArrowRight } from 'lucide-react';
-import profileImg from '../assets/profile.jpeg';
+import React from "react";
+import {
+  Github,
+  Linkedin,
+  Mail,
+  Instagram,
+  Facebook,
+  MessageCircle,
+  Twitter,
+  ArrowRight,
+} from "lucide-react";
+import profileImg from "../assets/profile.jpeg";
 
 const Hero = ({ scrollTo }) => {
   return (
-    <section id="home" className="min-h-screen flex items-center px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20">
+    <section
+      id="home"
+      className="min-h-screen flex items-center px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20"
+    >
       <div className="max-w-7xl mx-auto w-full">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Side - Text Content */}
           <div className="order-2 lg:order-1 text-center lg:text-left">
             <div className="mb-4 sm:mb-6">
-                <span className="inline-block px-3 py-1.5 rounded-full bg-blue-100 text-blue-600 text-lg sm:text-base font-medium mb-2 sm:mb-3">
-                👋 Hello, I'm Mojjam 
+              <span className="inline-block px-3 py-1.5 rounded-full bg-blue-100 text-blue-600 text-lg sm:text-base font-medium mb-2 sm:mb-3">
+                👋 Hello, I'm Mojjam
               </span>
               <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold mb-3 leading-tight text-center sm:text-left">
                 <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
                   <span className="bg-gradient-to-r from-blue-600 to-blue-600 bg-clip-text text-transparent">
                     Jamiu Mojeed
                   </span>
-                  <span className="text-gray-800">Adekunle</span>
+                  <span className="text-gray-500">Adekunle</span>
                 </div>
               </h1>
               <p className="text-base sm:text-lg lg:text-xl text-gray-400 mb-4 max-w-xl mx-auto lg:mx-0">
-                Full Stack Developer crafting beautiful digital experiences with modern technologies
+                I am a Fullstack Web and Mobile App Developer crafting beautiful
+                User Interfaces digital experiences with modern technologies, I
+                am also a tech tutor/educator giving from my little knowledge to
+                the upcoming tech developers that are aiming to have a stand in
+                the beautiful industry.
               </p>
             </div>
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-3 justify-center lg:justify-start mb-6">
               <button
-                onClick={() => scrollTo('projects')}
+                onClick={() => scrollTo("projects")}
                 className="group inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-blue-600 to-blue-600 rounded-full hover:from-blue-700 hover:to-blue-700 transition-all transform hover:scale-105 text-white font-medium text-sm sm:text-base"
               >
                 View My Work
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
-                <button
-                onClick={() => scrollTo('contact')}
+              <button
+                onClick={() => scrollTo("contact")}
                 className="inline-flex items-center px-5 sm:px-6 py-2.5 sm:py-3 border-2 border-blue-500 rounded-full hover:bg-blue-500/10 transition-all text-blue-600 font-medium text-sm sm:text-base"
               >
                 Get In Touch
@@ -45,25 +61,67 @@ const Hero = ({ scrollTo }) => {
 
             {/* Social Links */}
             <div className="flex flex-wrap gap-2 sm:gap-3 justify-center lg:justify-start">
-              <a href="https://github.com/mojjam07" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="group p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110">
+              <a
+                href="https://github.com/mojjam07"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+                className="group p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110"
+              >
                 <Github className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 dark:text-gray-400 group-hover:text-blue-500 transition-colors" />
               </a>
-              <a href="www.linkedin.com/in/mojeed-jamiu-b279171a2" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="group p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110">
+              <a
+                href="www.linkedin.com/in/mojeed-jamiu-b279171a2"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="group p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110"
+              >
                 <Linkedin className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 dark:text-gray-400 group-hover:text-blue-500 transition-colors" />
               </a>
-              <a href="mailto:mojjam07@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email" className="group p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110">
+              <a
+                href="mailto:mojjam07@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Email"
+                className="group p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110"
+              >
                 <Mail className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 dark:text-gray-400 group-hover:text-blue-500 transition-colors" />
               </a>
-              <a href="https://instagram.com/yourusername" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="group p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110">
+              <a
+                href="https://instagram.com/yourusername"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="group p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110"
+              >
                 <Instagram className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 dark:text-gray-400 group-hover:text-blue-500 transition-colors" />
               </a>
-              <a href="https://facebook.com/yourusername" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="group p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110">
+              <a
+                href="https://facebook.com/yourusername"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="group p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110"
+              >
                 <Facebook className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 dark:text-gray-400 group-hover:text-blue-500 transition-colors" />
               </a>
-              <a href="https://wa.me/07063306325" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="group p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110">
+              <a
+                href="https://wa.me/07063306325"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="group p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110"
+              >
                 <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 dark:text-gray-400 group-hover:text-blue-500 transition-colors" />
               </a>
-              <a href="https://twitter.com/el_munjid07" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="group p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110">
+              <a
+                href="https://twitter.com/el_munjid07"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Twitter"
+                className="group p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110"
+              >
                 <Twitter className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 dark:text-gray-400 group-hover:text-blue-500 transition-colors" />
               </a>
             </div>
@@ -74,7 +132,7 @@ const Hero = ({ scrollTo }) => {
             <div className="relative">
               {/* Decorative Background */}
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full blur-2xl opacity-20" />
-              
+
               {/* Image Container */}
               <div className="relative w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80 cursor-pointer group">
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 p-1.5 sm:p-2">
@@ -90,10 +148,16 @@ const Hero = ({ scrollTo }) => {
                 </div>
 
                 {/* Floating Elements */}
-                <div className="absolute -top-3 -right-3 w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg animate-bounce" style={{ animationDuration: '3s' }}>
+                <div
+                  className="absolute -top-3 -right-3 w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg animate-bounce"
+                  style={{ animationDuration: "3s" }}
+                >
                   <span className="text-xl sm:text-2xl">💻</span>
                 </div>
-                <div className="absolute -bottom-3 -left-3 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg animate-bounce" style={{ animationDuration: '2.5s' }}>
+                <div
+                  className="absolute -bottom-3 -left-3 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg animate-bounce"
+                  style={{ animationDuration: "2.5s" }}
+                >
                   <span className="text-lg sm:text-xl">⚡</span>
                 </div>
                 <div className="absolute top-1/2 -left-6 transform -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-gray-500 to-gray-600 flex items-center justify-center shadow-lg animate-pulse">
@@ -116,4 +180,3 @@ const Hero = ({ scrollTo }) => {
 };
 
 export default Hero;
-

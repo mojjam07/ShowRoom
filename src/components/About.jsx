@@ -121,12 +121,16 @@ const About = () => {
             <div className="relative">
               <div className="absolute -left-3 top-0 w-1 h-full bg-gradient-to-b from-blue-500 to-blue-600 rounded-full" />
               <p className="pl-4">
-                I'm a passionate <span className="font-semibold text-blue-600 dark:text-blue-400">Full Stack Developer</span> with a focus on building scalable, high-performance web applications that solve real-world problems.
+                I'm a passionate <span className="font-semibold text-blue-600 dark:text-blue-400">Fullstack Developer</span> with a focus on building scalable, high-performance web and mobie applications that solve real-world problems, I also train students that are aspiring to be a tech developer.
               </p>
             </div>
 
             <p className="pl-0">
               I specialize in <span className="font-semibold text-blue-600 dark:text-blue-400">React, Node.js, and modern JavaScript frameworks</span> like Next.js and Express. My development philosophy emphasizes clean architecture, reusable components, and responsive design.
+            </p>
+            
+            <p className="pl-0">
+              I also use <span className="font-semibold text-blue-600 dark:text-blue-400">Django, Django REST API, and some other Python frameworks</span> like Flask, and others.
             </p>
 
             <p className="pl-0">

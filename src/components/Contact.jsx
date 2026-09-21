@@ -27,7 +27,7 @@ const Contact = ({ formData, setFormData, formStatus, handleSubmit }) => {
             Get In <span className="bg-gradient-to-r from-blue-600 to-blue-600 bg-clip-text text-transparent">Touch</span>
           </h2>
           <p className="text-gray-700 dark:text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
-            Have a project in mind or want to collaborate? I'd love to hear from you.
+            Have a project in mind, want to collaborate, or are you interested in gaining some experience in tech? I'd love to hear from you.
           </p>
         </div>
 
@@ -36,7 +36,7 @@ const Contact = ({ formData, setFormData, formStatus, handleSubmit }) => {
           <div className="space-y-4">
             <div className="p-4 sm:p-6 rounded-xl bg-white dark:bg-slate-800/50 backdrop-blur-sm border border-gray-200 dark:border-white/10">
               <h3 className="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-200 mb-4">
-                Contact Information
+                My Contact Information
               </h3>
               <div className="space-y-3">
                 {contactInfo.map((item) => (
@@ -95,7 +95,7 @@ const Contact = ({ formData, setFormData, formStatus, handleSubmit }) => {
           {/* Right Side - Contact Form */}
           <div className="p-4 sm:p-6 rounded-xl bg-white dark:bg-slate-800/50 backdrop-blur-sm border border-gray-200 dark:border-white/10">
             <h3 className="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-200 mb-4">
-              Send a Message
+              Send me a Direct Message
             </h3>
             
             <form onSubmit={handleSubmit} className="space-y-4">
