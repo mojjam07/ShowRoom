@@ -74,7 +74,7 @@ const sections = ['home', 'about', 'skills', 'projects', 'reviews', 'contact'];
       });
       if (current) setActiveSection(current);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [fetchData]);
 
@@ -111,7 +111,7 @@ const sections = ['home', 'about', 'skills', 'projects', 'reviews', 'contact'];
 
   return (
     // <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 text-gray-900">
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 dark:from-slate-900 dark:via-blue-900 dark:to-slate-900 text-gray-900 dark:text-white">
+    <div className="min-h-screen">
       <Navigation
         activeSection={activeSection}
         scrollTo={scrollTo}

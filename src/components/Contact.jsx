@@ -10,7 +10,7 @@ const Contact = ({ formData, setFormData, formStatus, handleSubmit }) => {
 
   const socialLinks = [
     { icon: Github, href: 'https://github.com/mojjam07', label: 'GitHub' },
-    { icon: Linkedin, href: 'www.linkedin.com/in/mojeed-jamiu-b279171a2', label: 'LinkedIn' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/mojeed-jamiu-b279171a2', label: 'LinkedIn' },
     { icon: Twitter, href: 'https://twitter.com/el_munjid07', label: 'Twitter' },
     { icon: Instagram, href: 'https://instagram.com/el_munjid', label: 'Instagram' },
   ];
@@ -109,7 +109,7 @@ const Contact = ({ formData, setFormData, formStatus, handleSubmit }) => {
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="FistName LastName"
+                    placeholder="First Last"
                     className="w-full px-3 py-2.5 bg-white dark:bg-slate-900 border border-gray-300 dark:border-gray-600/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-gray-800 dark:text-gray-200 placeholder-gray-400 text-sm"
                     required
                   />

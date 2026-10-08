@@ -1,128 +1,51 @@
 @import "tailwindcss";
 
-/* Custom Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+/* Class-based dark mode: <html class="dark"> (set by ThemeContext + the inline script in index.html) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", "Hanken Grotesk", ui-sans-serif, sans-serif;
+  --breakpoint-xs: 475px;
+
+  /* Brand ramp. Existing components use blue-*, so remapping it re-skins the whole UI.
+     To change the brand colour, edit only these 11 values. */
+  --color-blue-50: #edf8f2;  --color-blue-100: #d5f0e1; --color-blue-200: #aee1c7;
+  --color-blue-300: #7acba6; --color-blue-400: #47b183; --color-blue-500: #1f9567;
+  --color-blue-600: #0a7b4b; --color-blue-700: #08633d; --color-blue-800: #094f33;
+  --color-blue-900: #0b402b; --color-blue-950: #06251a;
+
+  /* Neutrals with a faint green tint, shared by gray-* and slate-* */
+  --color-gray-50: #f6f8f6;  --color-gray-100: #eef2ef; --color-gray-200: #dde4df;
+  --color-gray-300: #c3cec7; --color-gray-400: #93a59b; --color-gray-500: #6b7d73;
+  --color-gray-600: #52625a; --color-gray-700: #3b4942; --color-gray-800: #24312a;
+  --color-gray-900: #15211b; --color-gray-950: #0e1713;
+  --color-slate-50: #f6f8f6;  --color-slate-100: #eef2ef; --color-slate-200: #dde4df;
+  --color-slate-300: #c3cec7; --color-slate-400: #93a59b; --color-slate-500: #6b7d73;
+  --color-slate-600: #52625a; --color-slate-700: #3b4942; --color-slate-800: #24312a;
+  --color-slate-900: #15211b; --color-slate-950: #0e1713;
 }
 
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
+:root { --bg: #f7f8f5; --ink: #12201a; color-scheme: light; }
+.dark { --bg: #0e1713; --ink: #e8f0eb; color-scheme: dark; }
 
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; -webkit-text-size-adjust: 100%; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-sans); overflow-x: hidden; transition: background-color .25s, color .25s; }
+h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.02em; }
+img { max-width: 100%; }
+::selection { background: color-mix(in oklab, var(--color-blue-500) 35%, transparent); }
 
-@keyframes spinSlow {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+:focus-visible { outline: 2px solid var(--color-blue-500); outline-offset: 2px; }
 
-/* Animation Classes */
-.animate-fade-in {
-  animation: fadeIn 0.3s ease-out forwards;
-}
+@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+@keyframes slideDown { from { opacity: 0; transform: translateY(-10px) scale(.95) } to { opacity: 1; transform: none } }
+.animate-fade-in { animation: fadeIn .3s ease-out forwards; }
+.animate-slide-down { animation: slideDown .3s ease-out forwards; }
 
-.animate-slide-down {
-  animation: slideDown 0.3s ease-out forwards;
-}
+@media (hover: none) and (pointer: coarse) { .touch-target { min-height: 44px; min-width: 44px; } }
+.focus-ring:focus { outline: 2px solid var(--color-blue-500); outline-offset: 2px; }
 
-.animate-slide-in-right {
-  animation: slideInRight 0.3s ease-out forwards;
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
-
-.animate-spin-slow {
-  animation: spinSlow 2s linear infinite;
-}
-
-/* Responsive utilities */
-@media (max-width: 475px) {
-  .container-xs {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-}
-
-@media (min-width: 475px) and (max-width: 640px) {
-  .container-sm {
-    max-width: 100%;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-}
-
-@media (min-width: 640px) and (max-width: 768px) {
-  .container-md {
-    max-width: 100%;
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-}
-
-/* Fluid typography helpers */
-.fluid-text {
-  font-size: clamp(1rem, 4vw, 1.5rem);
-}
-
-.fluid-heading {
-  font-size: clamp(2rem, 8vw, 4rem);
-}
-
-/* Touch-friendly interactions */
-@media (hover: none) and (pointer: coarse) {
-  .touch-target {
-    min-height: 44px;
-    min-width: 44px;
-  }
-}
-
-/* Better focus states for accessibility */
-.focus-ring:focus {
-  outline: 2px solid #3b82f6;
-  outline-offset: 2px;
-}
-
-/* Responsive grid utilities */
-.grid-responsive {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1rem;
-}
-
-@media (min-width: 768px) {
-  .grid-responsive {
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .grid-responsive {
-    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-    gap: 2rem;
-  }
-}
-

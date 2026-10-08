@@ -1,213 +1,124 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu, X, LogOut } from 'lucide-react';
+import ThemeToggle from './ThemeToggle';
+
+const links = ['home', 'about', 'skills', 'projects', 'reviews', 'contact'];
+const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
 const Navigation = ({ activeSection, scrollTo, user, onLogout }) => {
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const menuRef = useRef(null);
-
-  const toggleMenu = useCallback(() => {
-    setIsMenuOpen(prev => !prev);
-  }, []);
-
-  const closeMenu = useCallback(() => {
-    setIsMenuOpen(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   useEffect(() => {
-    setMounted(true);
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        closeMenu();
-      }
-    };
-    if (isMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
+    if (!open) return;
+    const onKey = (e) => e.key === 'Escape' && setOpen(false);
+    document.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
     };
-  }, [isMenuOpen, closeMenu]);
+  }, [open]);
 
-  useEffect(() => {
-    const handleEsc = (event) => {
-      if (event.key === 'Escape' && isMenuOpen) {
-        closeMenu();
-      }
-    };
-    if (isMenuOpen) {
-      document.addEventListener('keydown', handleEsc);
-    }
-    return () => {
-      document.removeEventListener('keydown', handleEsc);
-    };
-  }, [isMenuOpen, closeMenu]);
-
-  const navLinks = ['home', 'about', 'skills', 'projects', 'reviews', 'contact'];
-
-  // Add admin link if user is authenticated
-  const allLinks = user ? [...navLinks, 'admin'] : navLinks;
-
-  if (!mounted) {
-    return null;
-  }
-
-  const handleNavClick = (item) => {
-    if (item === 'admin') {
-      window.location.href = '/admin';
-    } else {
-      scrollTo(item);
-    }
-    closeMenu();
+  const go = (item) => {
+    if (item === 'admin') window.location.href = '/admin';
+    else scrollTo(item);
+    setOpen(false);
   };
 
-  const handleLogout = () => {
-    if (onLogout) onLogout();
-    closeMenu();
-  };
+  const all = user ? [...links, 'admin'] : links;
 
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out ${
-          isScrolled ? 'py-1 sm:py-1.5' : 'py-2 sm:py-2.5'
-        }`}
-      >
+      <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6">
         <nav
-          role="navigation"
           aria-label="Main navigation"
-          className={`mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300 bg-white/75 backdrop-blur-xl border border-gray-200/50 shadow-lg rounded-full`}
+          className={`mx-auto flex h-14 max-w-6xl items-center justify-between rounded-2xl border pl-3 pr-2 backdrop-blur-xl transition-all duration-300 sm:pl-4 ${
+            scrolled
+              ? 'border-gray-200 bg-white/85 shadow-lg shadow-black/5 dark:border-white/10 dark:bg-gray-900/80'
+              : 'border-transparent bg-transparent'
+          }`}
         >
+          <button onClick={() => go('home')} className="flex items-center gap-2.5 font-display text-base font-semibold" aria-label="Go to home">
+            <span className="grid h-8 w-8 place-items-center rounded-lg bg-blue-600 text-sm font-bold text-white">JM</span>
+            <span className="hidden xs:inline">Jamiu M. A.</span>
+          </button>
 
-          <div className="flex items-center justify-between h-11 sm:h-13">
-
-            {/* Logo */}
-            <div className="flex-shrink-0">
+          <div className="hidden items-center gap-1 md:flex">
+            {all.map((item) => (
               <button
-                onClick={() => scrollTo('home')}
-                className="group relative inline-flex items-center justify-center font-bold text-lg sm:text-xl hover:scale-105 transition-transform duration-300"
-                aria-label="Go to home"
+                key={item}
+                onClick={() => go(item)}
+                aria-current={activeSection === item ? 'page' : undefined}
+                className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                  activeSection === item
+                    ? 'bg-blue-50 text-blue-700 dark:bg-white/10 dark:text-blue-300'
+                    : 'text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white'
+                }`}
               >
-                <span className="bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent">
-                  Jamiu M. A.
-                </span>
+                {cap(item)}
               </button>
-            </div>
+            ))}
+          </div>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-1">
-              {allLinks.map((item) => (
-                <button
-                  key={item}
-                  onClick={() => handleNavClick(item)}
-                  className={`relative px-3 py-2 text-sm font-semibold capitalize tracking-wide transition-all duration-300 hover:scale-105 ${
-                    activeSection === item
-                      ? 'text-blue-700'
-                      : 'text-gray-600 hover:text-blue-700'
-                  }`}
-                  aria-current={activeSection === item ? 'page' : undefined}
-                >
-                  <span className="relative z-10">{item.charAt(0).toUpperCase() + item.slice(1)}</span>
-                  {activeSection === item ? (
-                    <span className="absolute inset-0 rounded-full bg-blue-50/70 border border-blue-100/70 shadow-sm -z-10" />
-                  ) : (
-                    <span className="absolute inset-0 rounded-full bg-transparent border border-transparent -z-10" />
-                  )}
-                </button>
-
-              ))}
-
-
-
-            </div>
-
-            {/* Mobile controls */}
-            <div className="flex items-center md:hidden gap-2">
-
-              {/* Mobile Menu Toggle */}
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            {user && onLogout && (
               <button
-                onClick={toggleMenu}
-                className="touch-target group relative p-2.5 sm:p-3 rounded-full bg-white/70 backdrop-blur-xl border border-gray-200/60 hover:bg-white transition-all duration-300 shadow-sm overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ring-inset"
-                aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-                aria-expanded={isMenuOpen}
-                aria-controls="mobile-menu"
+                onClick={onLogout}
+                aria-label="Log out"
+                title="Log out"
+                className="touch-target hidden h-10 w-10 items-center justify-center rounded-xl border border-gray-200 text-gray-600 transition-colors hover:bg-gray-100 md:inline-flex dark:border-white/10 dark:text-gray-300 dark:hover:bg-white/10"
               >
-                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-blue-500/20 via-blue-500/10 to-transparent transition-transform duration-500 group-hover:translate-x-full" aria-hidden="true" />
-                <span className="relative z-10 inline-flex items-center justify-center w-10 h-10">
-                  {isMenuOpen ? (
-                    <X className="w-5 h-5 sm:w-6 sm:h-6 text-blue-700 group-hover:scale-105 transition-transform duration-300" />
-                  ) : (
-                    <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-blue-700 group-hover:scale-105 transition-transform duration-300" />
-                  )}
-                </span>
+                <LogOut className="h-[18px] w-[18px]" />
               </button>
-            </div>
+            )}
+            <button
+              onClick={() => setOpen((o) => !o)}
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+              className="touch-target inline-flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 bg-white/70 text-gray-700 md:hidden dark:border-white/10 dark:bg-white/5 dark:text-gray-200"
+            >
+              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
           </div>
         </nav>
       </header>
 
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div 
-        id="mobile-menu"
-          className="fixed inset-0 z-[60] md:hidden"
-          role="dialog"
-          aria-modal="true"
-          aria-hidden={!isMenuOpen}
-        >
-
-          {/* Backdrop */}
-          <div 
-            className="absolute inset-0 bg-black/30 backdrop-blur-sm" 
-            onClick={closeMenu}
-            aria-hidden="true"
-          />
-          
-          {/* Menu Panel */}
-          <div 
-            ref={menuRef}
-            className="fixed top-16 left-4 right-4 mx-2 pt-6 pb-4 z-10 rounded-2xl shadow-2xl bg-white/95 border border-gray-200/50 backdrop-blur-xl max-h-[calc(100vh-4rem)] overflow-y-auto"
-
-          >
-
-            <nav className="px-1">
-              {allLinks.map((item) => (
-                <button
-                  key={item}
-                  onClick={() => handleNavClick(item)}
-                  className={`w-full text-left px-6 py-4 text-lg font-semibold capitalize block transition-all duration-300 rounded-xl mb-2 last:mb-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ring-inset ${
-                    activeSection === item
-                      ? 'text-blue-600 dark:text-blue-400 bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-950/50 dark:to-blue-900/50 shadow-lg'
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800/50 hover:shadow-md'
-                  }`}
-                  role="menuitem"
-                >
-                  {item.charAt(0).toUpperCase() + item.slice(1)}
-                </button>
-              ))}
-              
-              {/* Logout button for authenticated users */}
-              {user && (
-                <button
-                  onClick={handleLogout}
-                  className="w-full text-left px-6 py-4 text-lg font-semibold capitalize flex items-center transition-all duration-300 rounded-xl mt-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 ring-inset bg-red-50/50 dark:bg-red-950/30 hover:bg-red-100 dark:hover:bg-red-900/30 shadow-sm border border-red-200/50 dark:border-red-800/50"
-                  role="menuitem"
-                >
-                  <LogOut className="w-5 h-5 mr-3 flex-shrink-0" />
-                  Logout
-                </button>
-              )}
-            </nav>
+      {open && (
+        <div id="mobile-menu" className="fixed inset-0 z-40 md:hidden" role="dialog" aria-modal="true" aria-label="Menu">
+          <button className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setOpen(false)} aria-label="Close menu" />
+          <div className="animate-slide-down absolute left-3 right-3 top-[4.5rem] max-h-[calc(100svh-6rem)] overflow-y-auto rounded-2xl border border-gray-200 bg-white p-2 shadow-2xl dark:border-white/10 dark:bg-gray-900">
+            {all.map((item) => (
+              <button
+                key={item}
+                onClick={() => go(item)}
+                aria-current={activeSection === item ? 'page' : undefined}
+                className={`block w-full rounded-xl px-4 py-3.5 text-left text-base font-medium ${
+                  activeSection === item
+                    ? 'bg-blue-50 text-blue-700 dark:bg-white/10 dark:text-blue-300'
+                    : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/5'
+                }`}
+              >
+                {cap(item)}
+              </button>
+            ))}
+            {user && onLogout && (
+              <button
+                onClick={() => { onLogout(); setOpen(false); }}
+                className="mt-1 flex w-full items-center gap-3 rounded-xl border-t border-gray-100 px-4 py-3.5 text-left text-base font-medium text-gray-700 dark:border-white/10 dark:text-gray-300"
+              >
+                <LogOut className="h-5 w-5" /> Log out
+              </button>
+            )}
           </div>
         </div>
       )}
@@ -216,4 +127,3 @@ const Navigation = ({ activeSection, scrollTo, user, onLogout }) => {
 };
 
 export default Navigation;
-

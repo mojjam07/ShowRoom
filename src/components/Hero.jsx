@@ -1,182 +1,92 @@
-import React from "react";
-import {
-  Github,
-  Linkedin,
-  Mail,
-  Instagram,
-  Facebook,
-  MessageCircle,
-  Twitter,
-  ArrowRight,
-} from "lucide-react";
-import profileImg from "../assets/profile.jpeg";
+import React from 'react';
+import { Github, Linkedin, Mail, Instagram, MessageCircle, Twitter } from 'lucide-react';
+import profileImg from '../assets/profile.jpeg';
 
-const Hero = ({ scrollTo }) => {
-  return (
-    <section
-      id="home"
-      className="min-h-screen flex items-center px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20"
-    >
-      <div className="max-w-7xl mx-auto w-full">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          {/* Left Side - Text Content */}
-          <div className="order-2 lg:order-1 text-center lg:text-left">
-            <div className="mb-4 sm:mb-6">
-              <span className="inline-block px-3 py-1.5 rounded-full bg-blue-100 text-blue-600 text-lg sm:text-base font-medium mb-2 sm:mb-3">
-                👋 Hello, I'm Mojjam
-              </span>
-              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold mb-3 leading-tight text-center sm:text-left">
-                <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                  <span className="bg-gradient-to-r from-blue-600 to-blue-600 bg-clip-text text-transparent">
-                    Jamiu Mojeed
-                  </span>
-                  <span className="text-gray-500">Adekunle</span>
-                </div>
-              </h1>
-              <p className="text-base sm:text-lg lg:text-xl text-gray-400 mb-4 max-w-xl mx-auto lg:mx-0">
-                I am a Fullstack Web and Mobile App Developer crafting beautiful
-                User Interfaces digital experiences with modern technologies, I
-                am also a tech tutor/educator giving from my little knowledge to
-                the upcoming tech developers that are aiming to have a stand in
-                the beautiful industry.
-              </p>
-            </div>
+const socials = [
+  { icon: Github, label: 'GitHub', href: 'https://github.com/mojjam07' },
+  { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/mojeed-jamiu-b279171a2' },
+  { icon: Mail, label: 'Email', href: 'mailto:mojjam07@gmail.com' },
+  { icon: Twitter, label: 'Twitter', href: 'https://twitter.com/el_munjid07' },
+  { icon: Instagram, label: 'Instagram', href: 'https://instagram.com/el_munjid' },
+  { icon: MessageCircle, label: 'WhatsApp', href: 'https://wa.me/2347063306325' },
+];
 
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap gap-3 justify-center lg:justify-start mb-6">
-              <button
-                onClick={() => scrollTo("projects")}
-                className="group inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-blue-600 to-blue-600 rounded-full hover:from-blue-700 hover:to-blue-700 transition-all transform hover:scale-105 text-white font-medium text-sm sm:text-base"
-              >
-                View My Work
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-              <button
-                onClick={() => scrollTo("contact")}
-                className="inline-flex items-center px-5 sm:px-6 py-2.5 sm:py-3 border-2 border-blue-500 rounded-full hover:bg-blue-500/10 transition-all text-blue-600 font-medium text-sm sm:text-base"
-              >
-                Get In Touch
-              </button>
-            </div>
+const Hero = ({ scrollTo }) => (
+  <section id="home" className="flex min-h-[100svh] items-center px-4 pb-16 pt-28 sm:px-6 lg:px-8">
+    <div className="mx-auto grid w-full max-w-6xl items-center gap-12 lg:grid-cols-[1.25fr_0.75fr] lg:gap-16">
+      <div className="order-2 lg:order-1">
+        <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white/70 px-3 py-1.5 text-sm text-gray-700 dark:border-white/10 dark:bg-white/5 dark:text-gray-300">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-500 opacity-60" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-500" />
+          </span>
+          Available for new work
+        </p>
 
-            {/* Social Links */}
-            <div className="flex flex-wrap gap-2 sm:gap-3 justify-center lg:justify-start">
-              <a
-                href="https://github.com/mojjam07"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub"
-                className="group p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110"
-              >
-                <Github className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 dark:text-gray-400 group-hover:text-blue-500 transition-colors" />
-              </a>
-              <a
-                href="www.linkedin.com/in/mojeed-jamiu-b279171a2"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="group p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110"
-              >
-                <Linkedin className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 dark:text-gray-400 group-hover:text-blue-500 transition-colors" />
-              </a>
-              <a
-                href="mailto:mojjam07@gmail.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Email"
-                className="group p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110"
-              >
-                <Mail className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 dark:text-gray-400 group-hover:text-blue-500 transition-colors" />
-              </a>
-              <a
-                href="https://instagram.com/yourusername"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-                className="group p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110"
-              >
-                <Instagram className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 dark:text-gray-400 group-hover:text-blue-500 transition-colors" />
-              </a>
-              <a
-                href="https://facebook.com/yourusername"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook"
-                className="group p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110"
-              >
-                <Facebook className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 dark:text-gray-400 group-hover:text-blue-500 transition-colors" />
-              </a>
-              <a
-                href="https://wa.me/07063306325"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="WhatsApp"
-                className="group p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110"
-              >
-                <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 dark:text-gray-400 group-hover:text-blue-500 transition-colors" />
-              </a>
-              <a
-                href="https://twitter.com/el_munjid07"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Twitter"
-                className="group p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110"
-              >
-                <Twitter className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 dark:text-gray-400 group-hover:text-blue-500 transition-colors" />
-              </a>
-            </div>
-          </div>
+        <h1 className="text-balance text-4xl font-semibold leading-[1.05] sm:text-6xl lg:text-7xl">
+          Jamiu Mojeed Adekunle
+        </h1>
+        <p className="mt-3 text-lg font-medium text-blue-700 sm:text-xl dark:text-blue-300">
+          Full-stack web and mobile developer
+        </p>
 
-          {/* Right Side - Large Profile Image */}
-          <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
-            <div className="relative">
-              {/* Decorative Background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full blur-2xl opacity-20" />
+        <p className="mt-6 max-w-xl text-base leading-relaxed text-gray-600 sm:text-lg dark:text-gray-400">
+          I build modern web and mobile products with clean interfaces and solid architecture, and I teach
+          aspiring developers how to do the same.
+        </p>
 
-              {/* Image Container */}
-              <div className="relative w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80 cursor-pointer group">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 p-1.5 sm:p-2">
-                  <div className="w-full h-full rounded-full bg-white dark:bg-slate-900 flex items-center justify-center overflow-hidden">
-                    <a href="/admin/login" className="w-full h-full block">
-                      <img
-                        src={profileImg}
-                        alt="Jamiu Mojeed Adekunle - Full Stack Developer"
-                        className="w-full h-full rounded-full object-cover object-center transition-transform duration-300 group-hover:scale-110"
-                      />
-                    </a>
-                  </div>
-                </div>
-
-                {/* Floating Elements */}
-                <div
-                  className="absolute -top-3 -right-3 w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg animate-bounce"
-                  style={{ animationDuration: "3s" }}
-                >
-                  <span className="text-xl sm:text-2xl">💻</span>
-                </div>
-                <div
-                  className="absolute -bottom-3 -left-3 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg animate-bounce"
-                  style={{ animationDuration: "2.5s" }}
-                >
-                  <span className="text-lg sm:text-xl">⚡</span>
-                </div>
-                <div className="absolute top-1/2 -left-6 transform -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-gray-500 to-gray-600 flex items-center justify-center shadow-lg animate-pulse">
-                  <span className="text-lg sm:text-xl">🎯</span>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <button
+            onClick={() => scrollTo('projects')}
+            className="touch-target rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition-colors hover:bg-blue-700 sm:text-base"
+          >
+            See my work
+          </button>
+          <button
+            onClick={() => scrollTo('contact')}
+            className="touch-target rounded-xl border border-gray-300 px-6 py-3 text-sm font-semibold transition-colors hover:bg-gray-100 sm:text-base dark:border-white/15 dark:hover:bg-white/5"
+          >
+            Contact me
+          </button>
         </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce hidden sm:block">
-          <div className="w-6 h-10 rounded-full border-2 border-blue-500 flex justify-center pt-2">
-            <div className="w-1.5 h-3 rounded-full bg-blue-500" />
-          </div>
+        <ul className="mt-8 flex flex-wrap gap-2">
+          {socials.map(({ icon: Icon, label, href }) => (
+            <li key={label}>
+              <a
+                href={href}
+                target={href.startsWith('mailto:') ? undefined : '_blank'}
+                rel="noopener noreferrer"
+                aria-label={label}
+                title={label}
+                className="touch-target inline-flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 text-gray-600 transition-colors hover:border-blue-500 hover:text-blue-600 dark:border-white/10 dark:text-gray-400 dark:hover:border-blue-400 dark:hover:text-blue-300"
+              >
+                <Icon className="h-5 w-5" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="order-1 mx-auto w-56 sm:w-72 lg:order-2 lg:w-full lg:max-w-sm">
+        <div className="relative">
+          <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-[2rem] border border-blue-600/40 dark:border-blue-400/40" aria-hidden="true" />
+          <a
+            href="/admin/login"
+            tabIndex={-1}
+            className="relative block aspect-[4/5] overflow-hidden rounded-[2rem] border border-gray-200 bg-gray-100 dark:border-white/10 dark:bg-gray-900"
+          >
+            <img
+              src={profileImg}
+              alt="Jamiu Mojeed Adekunle, full-stack developer"
+              className="h-full w-full object-cover object-center"
+              fetchPriority="high"
+            />
+          </a>
         </div>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default Hero;

@@ -25,7 +25,7 @@ const Projects = ({ projects }) => {
           <p className="text-center text-gray-600 dark:text-gray-400">No projects available.</p>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
-            {projects.map((project) => (
+            {projects.slice(0, visibleProjects).map((project) => (
               <article
                 key={project.id}
                 className="group relative bg-white dark:bg-slate-800/50 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-200 dark:border-white/10 transition-all duration-500 hover:shadow-xl hover:-translate-y-1"
@@ -86,7 +86,7 @@ const Projects = ({ projects }) => {
 
                   {/* Tech Stack Tags */}
                   <div className="flex flex-wrap gap-1.5 mb-3">
-                    {project.tech.slice(0, 4).map((tech, i) => (
+                    {(project.tech || []).slice(0, 4).map((tech, i) => (
                       <span
                         key={i}
                         className="px-2 py-0.5 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-medium rounded-full"
@@ -94,7 +94,7 @@ const Projects = ({ projects }) => {
                         {tech}
                       </span>
                     ))}
-                    {project.tech.length > 4 && (
+                    {(project.tech?.length || 0) > 4 && (
                       <span className="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs font-medium rounded-full">
                         +{project.tech.length - 4}
                       </span>
