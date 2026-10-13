@@ -27,7 +27,7 @@ const Hero = ({ scrollTo }) => (
           Jamiu Mojeed Adekunle
         </h1>
         <p className="mt-3 text-lg font-medium text-blue-700 sm:text-xl dark:text-blue-300">
-          Full-stack web and mobile developer
+          Full-stack web and mobile app developer
         </p>
 
         <p className="mt-6 max-w-xl text-base leading-relaxed text-gray-600 sm:text-lg dark:text-gray-400">
